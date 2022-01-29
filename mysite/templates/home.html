@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Magic Shift</title>
+    <link rel="stylesheet" type="text/css" href="{%  static  '/css/styles.css'  %}">
+  </head>
+  <body>
+    <center>
+      <h1>Magic Shift</h1>
+    </center>
+
+    <center>
+      <div id="container">
+        <div id="left">
+          <a href="https://docs.google.com/spreadsheets/d/1mdYQXq-JlzXvvK66ptzu_WrnIr9L1lZyzeri2RIEiV8/edit?usp=sharing" target="_blank">
+            <h3>Access Availability</h3>
+          </a>
+        </div>
+        <div id="middle">
+          <a href="https://docs.google.com/spreadsheets/d/1kN_RPyl7DcgNLTdD6GiSgOO0G8OL1gMp5PBAlD4J6so/edit?usp=sharing" target="_blank">
+            <h3>Access request off sheet</h3>
+          </a>
+        </div>
+        <div id="right">
+          <a href="https://forms.gle/WdMnrTq692qxx1tm9" target="_blank">
+            <h3>Access request off form</h3>
+          </a>
+        </div>
+      </div>
+    </center>
+    <br>
+    <br>
+    <center>
+      <button onclick="location.href='{% url 'script' %}'" class="glow-on-hover" type="button">Generate Schedule</button>
+      <!-- <button onclick="location.href='{% url 'script' %}'" class="button button3">Generate Schedule</button><hr> -->
+    </center>
+    <br>
+    {% if 'data.item()' %}
+    <center>
+      {{data | safe}}
+    </center>
+    {% endif %}
+  </body>
+</html>
