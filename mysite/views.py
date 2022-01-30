@@ -40,7 +40,7 @@ def output(request):
     # authorize the clientsheet
     client2 = gspread.authorize(creds2)
     # get the instance of the Spreadsheet
-    sheet2 = client2.open('Request off')
+    sheet2 = client.open('Request off')
     # get the first sheet of the Spreadsheet
     sheet_instance2 = sheet2.get_worksheet(0)
     # create pandas file
@@ -51,7 +51,26 @@ def output(request):
     sheet_names = sheet_pandas["Name"].to_list()
     total_servers = len(sheet_names) - 1
 
-    def generate(day, shift, length):
+    # Creates required staff data
+    sheet3 = client.open('Required Staff')
+    instance = sheet3.get_worksheet(0)
+    needed_data = instance.get_all_records()
+    needed_pandas = pd.DataFrame.from_dict(needed_data)
+
+    def generate(day, shift):
+        it = 0
+        if shift == 3:
+            it = 0
+        elif shift == 5:
+            it = 2
+        elif shift == 7:
+            it = 1
+        elif shift == 11:
+            it = 4
+        elif shift == 13:
+            it = 3
+        needed_list = needed_pandas[day].to_list()
+        length = needed_list[it]
         people = []
         # Availability of each day
         sheet_collumn = sheet_pandas[day].to_list()
@@ -97,39 +116,45 @@ def output(request):
     col = 0
 
     # Generates all of the people for one day
-    def day(shift, servers, host, bar, foodrun):
-        global row
-        global col
-        sundayAM_servers = generate(shift, 3, servers)
-        sundayAM_host = generate(shift, 5, host)
-        sundayAM_bar = generate(shift, 7, bar)
-        sundayAM_runner = generate(shift, 11, foodrun)
-        day = (
-            sundayAM_servers,
-            sundayAM_host,
-            sundayAM_bar,
-            sundayAM_runner,
-        )
-        for item in sundayAM_servers:
-            worksheet.write(row, col,     item)
-            col += 1
-        row += 1
-        col = 0
-        for item in sundayAM_host:
-            worksheet.write(row, col,     item)
-            col += 1
-        row += 1
-        col = 0
-        for item in sundayAM_bar:
-            worksheet.write(row, col,     item)
-            col += 1
-        row += 1
-        col = 0
-        for item in sundayAM_runner:
-            worksheet.write(row, col,     item)
-            col += 1
-        row += 2
-        col = 0
+    # def day(shift):
+    #     global row
+    #     global col
+    #     sundayAM_servers = generate(shift, 3)
+    #     sundayAM_host = generate(shift, 5)
+    #     sundayAM_bar = generate(shift, 7)
+    #     sundayAM_runner = generate(shift, 11)
+    #     sundayAM_expo = generate(shift, 13)
+    #     day = (
+    #         sundayAM_servers,
+    #         sundayAM_host,
+    #         sundayAM_bar,
+    #         sundayAM_runner,
+    #     )
+    #     for item in sundayAM_servers:
+    #         worksheet.write(row, col,     item)
+    #         col += 1
+    #     row += 1
+    #     col = 0
+    #     for item in sundayAM_host:
+    #         worksheet.write(row, col,     item)
+    #         col += 1
+    #     row += 1
+    #     col = 0
+    #     for item in sundayAM_bar:
+    #         worksheet.write(row, col,     item)
+    #         col += 1
+    #     row += 1
+    #     col = 0
+    #     for item in sundayAM_runner:
+    #         worksheet.write(row, col,     item)
+    #         col += 1
+    #     row += 1
+    #     col = 0
+    #     for item in sundayAM_expo:
+    #         worksheet.write(row, col,     item)
+    #         col += 1
+    #     row += 2
+    #     col = 0
     all_shifts = [
         "SundayAM",
         "SundayPM",
@@ -155,12 +180,13 @@ def output(request):
         worksheet.write(0, col + 1,     x)
         col += 1
 
-    def complex(shift, servers, host, bar, foodrun):
+    def complex(shift):
         global row
-        server = generate(shift, 3, servers)
-        hostess = generate(shift, 5, host)
-        bartender = generate(shift, 7, bar)
-        runner = generate(shift, 11, foodrun)
+        server = generate(shift, 3)
+        hostess = generate(shift, 5)
+        bartender = generate(shift, 7)
+        runner = generate(shift, 11)
+        expo = generate(shift, 13)
 
         col = 1
 
@@ -173,45 +199,46 @@ def output(request):
         quick_write(hostess, "H/G")
         quick_write(bartender, "Bar")
         quick_write(runner, "Runner")
+        quick_write(expo, "Expo")
 
         row += 1
 
     for y in range(len(all_shifts)):
         for x in range(total_servers + 1):
             worksheet.write(x + 1, y + 1,     "     ")
-    complex("SundayAM", 15, 1, 1, 1)
+    complex("SundayAM")
     everyone = []
-    complex("SundayPM", 5, 1, 2, 0)
-    everyone = []
-
-    complex("MondayAM", 5, 1, 1, 1)
-    everyone = []
-    complex("MondayPM", 5, 1, 2, 0)
+    complex("SundayPM")
     everyone = []
 
-    complex("TuesdayAM", 5, 1, 1, 1)
+    complex("MondayAM")
     everyone = []
-    complex("TuesdayPM", 5, 1, 2, 0)
-    everyone = []
-
-    complex("WednesdayAM", 5, 1, 1, 1)
-    everyone = []
-    complex("WednesdayPM", 5, 1, 2, 0)
+    complex("MondayPM")
     everyone = []
 
-    complex("ThursdayAM", 5, 1, 1, 1)
+    complex("TuesdayAM")
     everyone = []
-    complex("ThursdayPM", 5, 1, 2, 0)
-    everyone = []
-
-    complex("FridayAM", 5, 1, 1, 1)
-    everyone = []
-    complex("FridayPM", 5, 1, 2, 0)
+    complex("TuesdayPM")
     everyone = []
 
-    complex("SaturdayAM", 5, 1, 1, 1)
+    complex("WednesdayAM")
     everyone = []
-    complex("SaturdayPM", 5, 1, 2, 0)
+    complex("WednesdayPM")
+    everyone = []
+
+    complex("ThursdayAM")
+    everyone = []
+    complex("ThursdayPM")
+    everyone = []
+
+    complex("FridayAM")
+    everyone = []
+    complex("FridayPM")
+    everyone = []
+
+    complex("SaturdayAM")
+    everyone = []
+    complex("SaturdayPM")
     everyone = []
 
     workbook.close()
@@ -219,6 +246,11 @@ def output(request):
     # This reads in your excel doc as a pandas DataFrame
     wb = pd.read_excel("shift.xlsx")
     new_version = wb.to_html()
+    from bs4 import BeautifulSoup
+    soup = BeautifulSoup(wb.to_html(), "html.parser")
+    soup.find('table')['id'] = 'tblStocks'
+    print("Generated a new Schedule")
+    # print(soup)
     # print(type(new_version))
     # print(wb)  # Export the DataFrame (Excel doc) to an html file
-    return render(request, "home.html", {"data": new_version})
+    return render(request, "home.html", {"data": str(soup)})

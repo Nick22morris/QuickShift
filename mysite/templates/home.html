@@ -1,46 +1,135 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Magic Shift</title>
-    <link rel="stylesheet" type="text/css" href="{%  static  '/css/styles.css'  %}">
-  </head>
-  <body>
-    <center>
-      <h1>Magic Shift</h1>
-    </center>
 
-    <center>
-      <div id="container">
-        <div id="left">
-          <a href="https://docs.google.com/spreadsheets/d/1mdYQXq-JlzXvvK66ptzu_WrnIr9L1lZyzeri2RIEiV8/edit?usp=sharing" target="_blank">
-            <h3>Access Availability</h3>
-          </a>
-        </div>
-        <div id="middle">
-          <a href="https://docs.google.com/spreadsheets/d/1kN_RPyl7DcgNLTdD6GiSgOO0G8OL1gMp5PBAlD4J6so/edit?usp=sharing" target="_blank">
-            <h3>Access request off sheet</h3>
-          </a>
-        </div>
-        <div id="right">
-          <a href="https://forms.gle/WdMnrTq692qxx1tm9" target="_blank">
-            <h3>Access request off form</h3>
-          </a>
-        </div>
+<head>
+  <meta charset="utf-8">
+  <title>QuickShift</title>
+  <link rel="shortcut icon" type="image/jpg" href="{%  static  '/css/favicon.ico'  %}"/>
+  <link rel="stylesheet" type="text/css" href="{%  static  '/css/styles.css'  %}">
+</head>
+
+<body>
+
+  <center>
+    <h1>QuickShift</h1>
+  </center>
+  <center>
+    <div id="container">
+      <div id="left">
+        <a href="https://docs.google.com/spreadsheets/d/1mdYQXq-JlzXvvK66ptzu_WrnIr9L1lZyzeri2RIEiV8/edit?usp=sharing" target="_blank">
+          <h3>Access Availability</h3>
+        </a>
       </div>
-    </center>
-    <br>
-    <br>
-    <center>
+      <div id="middle">
+        <a href="https://docs.google.com/spreadsheets/d/1kN_RPyl7DcgNLTdD6GiSgOO0G8OL1gMp5PBAlD4J6so/edit?usp=sharing" target="_blank">
+          <h3>Access Requests Sheet</h3>
+        </a>
+      </div>
+      <div id="right">
+        <a href="https://docs.google.com/spreadsheets/d/196BA2ix84I5JTH5_cCLFZhVjCgb_-nAu4sEQfq7fB0I/edit?usp=sharing" target="_blank">
+          <h3>Access Required Staff Sheet</h3>
+        </a>
+      </div>
+    </div>
+  </center>
+  <center>
+    <a href="https://forms.gle/WdMnrTq692qxx1tm9" target="_blank">
+      <h3>Access Requests Form</h3>
+    </a>
+  </center>
+  <br>
+  <br>
+  <center>
       <button onclick="location.href='{% url 'script' %}'" class="glow-on-hover" type="button">Generate Schedule</button>
       <!-- <button onclick="location.href='{% url 'script' %}'" class="button button3">Generate Schedule</button><hr> -->
     </center>
+
+  <br>
+  {% if 'data.item()' %}
+  <center>
+      <center>
+        <button onclick="exportData()" class="glow-on-hover">
+          Download Schedule
+        </button>
+      </center>
     <br>
-    {% if 'data.item()' %}
-    <center>
-      {{data | safe}}
-    </center>
-    {% endif %}
-  </body>
+    <br>
+    <div style="overflow-x:auto;">
+    {{data | safe}}
+    </div>
+  </center>
+  {% endif %}
+  <!-- <button onclick=type="button" name="button"></button> -->
+  <script>
+    function exportData() {
+      /* Get the HTML data using Element by Id */
+      var table = document.getElementById("tblStocks");
+
+      /* Declaring array variable */
+      var rows = [];
+
+      //iterate through rows of table
+      for (var i = 0, row; row = table.rows[i]; i++) {
+        //rows would be accessed using the "row" variable assigned in the for loop
+        //Get each cell value/column from the row
+        column1 = row.cells[0].innerText;
+        column2 = row.cells[1].innerText;
+        column3 = row.cells[2].innerText;
+        column4 = row.cells[3].innerText;
+        column5 = row.cells[4].innerText;
+        column6 = row.cells[5].innerText;
+        column7 = row.cells[7].innerText;
+        column8 = row.cells[7].innerText;
+        column9 = row.cells[8].innerText;
+        column10 = row.cells[9].innerText;
+        column11 = row.cells[10].innerText;
+        column12 = row.cells[11].innerText;
+        column13 = row.cells[12].innerText;
+        column14 = row.cells[13].innerText;
+        column15 = row.cells[14].innerText;
+        column16 = row.cells[15].innerText;
+
+        /* add a new records in the array */
+        rows.push(
+          [
+            column1,
+            column2,
+            column3,
+            column4,
+            column5,
+            column6,
+            column7,
+            column8,
+            column9,
+            column10,
+            column11,
+            column12,
+            column13,
+            column14,
+            column15,
+            column16
+          ]
+        );
+
+      }
+      csvContent = "data:text/csv;charset=utf-8,";
+      /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
+      rows.forEach(function(rowArray) {
+        row = rowArray.join(",");
+        csvContent += row + "\r\n";
+      });
+
+      /* create a hidden <a> DOM node and set its download attribute */
+      var encodedUri = encodeURI(csvContent);
+      var link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "KBJ-Schedule.csv");
+      document.body.appendChild(link);
+      /* download the data file named "KBJ-Schedule.csv" */
+      link.click();
+    }
+  </script>
+</body>
+
 </html>

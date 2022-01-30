@@ -1,10 +1,22 @@
-body{
-  background-color: black;
-}
+body {
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+background-color: #141E30;
+background: linear-gradient(to right, #24243e, #141E30, #0f0c29); }
 h1{
   color: #00bbf9;
 }
+
+h2 {
+margin-top: -1.15em;
+font-family: 'Pirata One', cursive;
+font-size: 3rem;
+color: #F7971E;
+text-align: center;}
+
 h3{
+  font-family: 'Poppins', sans-serif;
   color: white;
   text-align: center;
   border-radius: 25px;
@@ -13,6 +25,11 @@ h3{
   padding: 20px;
   width: 170px;
   height: 40;
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  vertical-align: top;
+  font-size: 12px;
 }
 #container {height: 100%; width:100%; font-size: 0;}
 #left, #middle, #right {display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;}
@@ -29,8 +46,8 @@ table {
   color: white;
 }
 th, td {
-  padding: 15px;
-  text-align: left;
+  padding: 10px;
+  text-align: center;
 }
 tr:hover {background-color: #00bbf9;}
 .button {
@@ -73,7 +90,7 @@ tr:hover {background-color: #00bbf9;}
 
 .glow-on-hover:before {
     content: '';
-    background: linear-gradient(45deg, #00f5d4, #ffffff, #00bbf9);
+    background: linear-gradient(45deg, #00f5d4, #f72585, #00bbf9, #480ca8, #ffffff);
     position: absolute;
     top: -2px;
     left:-2px;
@@ -117,3 +134,4 @@ tr:hover {background-color: #00bbf9;}
     50% { background-position: 400% 0; }
     100% { background-position: 0 0; }
 }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,900&display=swap');
