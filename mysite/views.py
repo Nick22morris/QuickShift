@@ -8,7 +8,6 @@ def button(request):
 def output(request):
     import random
     import xlsxwriter
-    from openpyxl import Workbook
     import gspread
     import pandas as pd
     from oauth2client.service_account import ServiceAccountCredentials
