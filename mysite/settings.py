@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-1i&)^_h-)m_$#4gv)@8^yjo0t(l_jk@spjd$r+wfo6^hu0y!0f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://quick-shift-usa.herokuapp.com/']
+ALLOWED_HOSTS = ['quick-shift-usa.herokuapp.com']
 
 
 # Application definition
