@@ -28,7 +28,8 @@ SECRET_KEY = 'hello'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['quick-shift-usa.herokuapp.com', 'quick-shift.us']
+ALLOWED_HOSTS = ['quick-shift-usa.herokuapp.com', 'quick-shift.us',
+                 'shaped-carp-py5y836rigvqtbzvxajrs9wj.herokudns.com']
 
 
 # Application definition
