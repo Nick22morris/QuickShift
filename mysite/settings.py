@@ -10,10 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from django.core.management.utils import get_random_secret_key
 from pathlib import Path
 import django_heroku
 import os
-
+from django.core.management.utils import get_random_secret_key
+print(get_random_secret_key())
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,8 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1i&)^_h-)m_$#4gv)@8^yjo0t(l_jk@spjd$r+wfo6^hu0y!0f'
-
+# SECRET_KEY = 'django-insecure-1i&)^_h-)m_$#4gv)@8^yjo0t(l_jk@spjd$r+wfo6^hu0y!0f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -127,4 +128,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 2
 # Activate Django-Heroku
-django_heroku.settings(locals()
+django_heroku.settings(locals())
