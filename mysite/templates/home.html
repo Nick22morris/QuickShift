@@ -14,45 +14,55 @@
   <center>
     <h1>QuickShift</h1>
   </center>
-  <center>
-    <div id="container">
-      <div id="left">
-        <a href="https://docs.google.com/spreadsheets/d/1mdYQXq-JlzXvvK66ptzu_WrnIr9L1lZyzeri2RIEiV8/edit?usp=sharing" target="_blank">
-          <h3>Access Availability</h3>
-        </a>
-      </div>
-      <div id="middle">
-        <a href="https://docs.google.com/spreadsheets/d/1kN_RPyl7DcgNLTdD6GiSgOO0G8OL1gMp5PBAlD4J6so/edit?usp=sharing" target="_blank">
-          <h3>Access Requests Sheet</h3>
-        </a>
-      </div>
-      <div id="right">
-        <a href="https://docs.google.com/spreadsheets/d/196BA2ix84I5JTH5_cCLFZhVjCgb_-nAu4sEQfq7fB0I/edit?usp=sharing" target="_blank">
-          <h3>Access Required Staff Sheet</h3>
-        </a>
-      </div>
-    </div>
-  </center>
-  <center>
-    <a href="https://forms.gle/WdMnrTq692qxx1tm9" target="_blank">
+  <!-- <center>
+    <a href="home.html" target="_blank">
       <h3>Access Requests Form</h3>
     </a>
-  </center>
-  <br>
-  <br>
-  <center>
-      <button onclick="location.href='{% url 'script' %}'" class="glow-on-hover" type="button">Generate Schedule</button>
-      <!-- <button onclick="location.href='{% url 'script' %}'" class="button button3">Generate Schedule</button><hr> -->
-    </center>
+  </center> -->
 
   <br>
+  <br>
+
+    <center>
+      <div id="container">
+        <div id="left">
+          <a href="https://docs.google.com/spreadsheets/d/1mdYQXq-JlzXvvK66ptzu_WrnIr9L1lZyzeri2RIEiV8/edit?usp=sharing" target="_blank">
+            <h3>Access Availability</h3>
+          </a>
+        </div>
+        <div id="middle">
+          <a href="https://docs.google.com/spreadsheets/d/1kN_RPyl7DcgNLTdD6GiSgOO0G8OL1gMp5PBAlD4J6so/edit?usp=sharing" target="_blank">
+            <h3>Access Requests Sheet</h3>
+          </a>
+        </div>
+        <div id="right">
+          <a href="https://docs.google.com/spreadsheets/d/196BA2ix84I5JTH5_cCLFZhVjCgb_-nAu4sEQfq7fB0I/edit?usp=sharing" target="_blank">
+            <h3>Access Required Staff Sheet</h3>
+          </a>
+        </div>
+      </div>
+    </center>
+    <br>
+    <br>
+    <center>
+      <div id="container">
+        <div id="left">
+          <button onclick="location.href='{% url 'form' %}'" class="glow-on-hover" type="button">Request Off Form</button>
+        </div>
+        <div id="middle">
+          <button onclick="location.href='{% url 'script' %}'" class="glow-on-hover" type="button">Generate Schedule</button>
+        </div>
+        <div id="right">
+          <button onclick="exportData()" class="glow-on-hover">Download Schedule</button>
+          </a>
+        </div>
+      </div>
+    </center>
+    <br>
+    <br>
+  <br>
   {% if 'data.item()' %}
-  <center>
-      <center>
-        <button onclick="exportData()" class="glow-on-hover">
-          Download Schedule
-        </button>
-      </center>
+
     <br>
     <br>
     <div style="overflow-x:auto;">

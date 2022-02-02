@@ -253,3 +253,7 @@ def output(request):
     # print(type(new_version))
     # print(wb)  # Export the DataFrame (Excel doc) to an html file
     return render(request, "home.html", {"data": str(soup)})
+
+
+def form(request):
+    return render(request, "form.html")

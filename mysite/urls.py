@@ -19,5 +19,6 @@ from . import views
 urlpatterns = [
     path(r'admin/', admin.site.urls),
     path(r'', views.button),
-    path(r'output', views.output, name="script")
+    path(r'generated-schedule', views.output, name="script"),
+    path(r'form', views.form, name="form")
 ]
