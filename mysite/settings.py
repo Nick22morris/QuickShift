@@ -15,6 +15,7 @@ from pathlib import Path
 import django_heroku
 import os
 from django.core.management.utils import get_random_secret_key
+import psycopg2
 print(get_random_secret_key())
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mysite',
     'django.contrib.admin',
+    'simple',
 ]
 
 MIDDLEWARE = [
@@ -82,11 +84,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'foo'),
-        'USER': os.getenv('DB_USER', 'foo'),
-        'PASSWORD': os.getenv('DB_PASS', 'bar'),
-        'HOST': os.getenv('DB_HOST', '127.0..0.1'),
-        'PORT': os.getenv('DB_PORT', '5432'),
+        'NAME': 'ycxghakx',
+        'USER': 'ycxghakx',
+        'PASSWORD': '8BTzY9hlkk2xHsw-iUKMqozRkvhKtq-d',
+        'HOST': 'tyke.db.elephantsql.com',
+        'PORT': '5432',
     }
 }
 
