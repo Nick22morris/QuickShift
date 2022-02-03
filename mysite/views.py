@@ -1,10 +1,13 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 
+@login_required(login_url='/accounts/login/')
 def button(request):
     return render(request, "home.html")
 
 
+@login_required(login_url='/accounts/login/')
 def output(request):
     import random
     import xlsxwriter
@@ -257,3 +260,7 @@ def output(request):
 
 def form(request):
     return render(request, "form.html")
+
+
+def log(request):
+    return render(request, "registration/logged_out.html")

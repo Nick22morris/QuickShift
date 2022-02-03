@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import include
 from . import views
 urlpatterns = [
     path(r'admin/', admin.site.urls),
     path(r'', views.button),
     path(r'generated-schedule', views.output, name="script"),
-    path(r'request-off', views.form, name="form")
+    path(r'request-off', views.form, name="form"),
+    path(r'logout', views.log, name="log"),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

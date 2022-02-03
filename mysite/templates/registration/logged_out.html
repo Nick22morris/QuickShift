@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Login</title>
+  <link rel="shortcut icon" type="image/jpg" href="{%  static  '/css/favicon.ico'  %}" />
+  <link rel="stylesheet" type="text/css" href="{%  static  '/css/styles.css'  %}">
+</head>
+
+<body>
+  {% block content %}
+  <center>
+    <h1>Logged out!</h1>
+    <a href="{% url 'login'%}"><h3>Click here to login again.</h3></a>
+  </center>
+  {% endblock %}
+</body>
+
+</html>

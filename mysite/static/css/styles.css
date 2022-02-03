@@ -7,13 +7,20 @@ background: linear-gradient(to right, #24243e, #141E30, #0f0c29); }
 h1{
   color: #00bbf9;
 }
+p {
+  font-family: 'Poppins', sans-serif;
+  color: red;
+}
+h4 {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+}
 
+.title1{
+    font-family: 'sans-serif';
+}
 h2 {
-margin-top: -1.15em;
-font-family: 'Pirata One', cursive;
-font-size: 3rem;
-color: #F7971E;
-text-align: center;}
+color: #FFFFFF;}
 
 h3{
   font-family: 'Poppins', sans-serif;
@@ -128,6 +135,15 @@ tr:hover {background-color: #00bbf9;}
     top: 0;
     border-radius: 10px;
 }
+.topright {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  font-size: 18px;
+}
+.cont {
+  position: relative;
+}
 
 @keyframes glowing {
     0% { background-position: 0 0; }
@@ -135,3 +151,58 @@ tr:hover {background-color: #00bbf9;}
     100% { background-position: 0 0; }
 }
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css?family=Lato:100&display=swap');
+.container {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center {
+  width: 180px;
+  height: 60px;
+  position: absolute;
+}
+
+.btn {
+  width: 180px;
+  height: 60px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid #00bbf9;
+  outline: none;
+  transition: 1s ease-in-out;
+}
+
+svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  fill: none;
+  stroke: #fff;
+  stroke-dasharray: 150 480;
+  stroke-dashoffset: 150;
+  transition: 1s ease-in-out;
+}
+
+.btn:hover {
+  transition: 1s ease-in-out;
+  background: #00f5d4;
+}
+
+.btn:hover svg {
+  stroke-dashoffset: -480;
+}
+
+.btn span {
+  color: white;
+  font-size: 18px;
+  font-weight: 100;
+}
