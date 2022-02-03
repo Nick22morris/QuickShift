@@ -83,9 +83,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
+    },
+    'users': {
+        'NAME': 'user_data',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'USER': 'mysql_user',
+        'PASSWORD': 'priv4te'
     }
 }
 
@@ -131,7 +134,6 @@ LOGIN_REDIRECT_URL = '/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-2
 # Activate Django-Heroku
 django_heroku.settings(locals())
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
