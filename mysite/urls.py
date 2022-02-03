@@ -20,5 +20,5 @@ urlpatterns = [
     path(r'admin/', admin.site.urls),
     path(r'', views.button),
     path(r'generated-schedule', views.output, name="script"),
-    path(r'form', views.form, name="form")
+    path(r'request-off', views.form, name="form")
 ]
