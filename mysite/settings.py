@@ -14,6 +14,7 @@ from django.core.management.utils import get_random_secret_key
 from pathlib import Path
 import django_heroku
 import os
+import dj_database_url
 from django.core.management.utils import get_random_secret_key
 import psycopg2
 print(get_random_secret_key())

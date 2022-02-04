@@ -20,8 +20,11 @@ from . import views
 urlpatterns = [
     path(r'admin/', admin.site.urls),
     path(r'', views.button),
+    path(r'home', views.button),
     path(r'generated-schedule', views.output, name="script"),
     path(r'request-off', views.form, name="form"),
+    path(r'upload', views.upload, name="upload"),
+    path(r'schedule', views.show_upload, name="schedule"),
     path(r'logout', views.log, name="log"),
     path('accounts/', include('django.contrib.auth.urls')),
 ]

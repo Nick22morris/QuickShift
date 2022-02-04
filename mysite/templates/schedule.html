@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+{% block content %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>View</title>
+  <link rel="shortcut icon" type="image/jpg" href="{%  static  '/css/favicon.ico'  %}" />
+  <link rel="stylesheet" type="text/css" href="{%  static  '/css/styles.css'  %}">
+</head>
+
+<body>
+  <center>
+  <h1>Current Schedule</h1>
+  <br>
+  {% if 'data.item()' %}
+  <div style="overflow-x:auto;" style="padding:50px 50px 50px 50px;">
+  {{data | safe}}
+  </div>
+  {% endif %}
+  {% endblock %}
+  </center>
+
+</body>
+
+</html>

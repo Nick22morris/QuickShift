@@ -10,23 +10,11 @@
 </head>
 
 <body>
-  <br>
-  <br>
-  <center>
-    <h1>QuickShift</h1>
-  </center>
-  <!-- logs out user -->
   {% if user.is_authenticated %}
   <a href="{% url 'logout' %}">
-      <div class="topright">
-        <button class="btn">
-          <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
-            <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line" />
-            <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line" />
-          </svg>
-          <span>Log Out</span>
-        </button>
-      </div>
+        <button class="gb">Log Out</button>
+  <a href="{% url 'upload' %}">
+        <button class="gb" >Upload</button>
   </a>
   {% else %}
   <!-- logs in user -->
@@ -38,6 +26,11 @@
     </div>
   </a>
   {% endif %}
+  <center>
+    <h1>QuickShift</h1>
+  </center>
+  <!-- logs out user -->
+
   <br>
   <br>
   <center>
@@ -89,7 +82,7 @@
   {% endif %}
   <!-- <button onclick=type="button" name="button"></button> -->
   <script>
-    function exportData() {
+    function exportData(name_data) {
       /* Get the HTML data using Element by Id */
       var table = document.getElementById("tblStocks");
 
@@ -106,7 +99,7 @@
         column4 = row.cells[3].innerText;
         column5 = row.cells[4].innerText;
         column6 = row.cells[5].innerText;
-        column7 = row.cells[7].innerText;
+        column7 = row.cells[6].innerText;
         column8 = row.cells[7].innerText;
         column9 = row.cells[8].innerText;
         column10 = row.cells[9].innerText;

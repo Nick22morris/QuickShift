@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 
 @login_required(login_url='/accounts/login/')
@@ -207,7 +209,7 @@ def output(request):
 
     for y in range(len(all_shifts)):
         for x in range(total_servers + 1):
-            worksheet.write(x + 1, y + 1,     "     ")
+            worksheet.write(x + 1, y + 1,     "-")
     complex("SundayAM")
     everyone = []
     complex("SundayPM")
@@ -242,7 +244,7 @@ def output(request):
     everyone = []
     complex("SaturdayPM")
     everyone = []
-
+    worksheet.write(0, 0,     "Name")
     workbook.close()
 
     # This reads in your excel doc as a pandas DataFrame
@@ -264,3 +266,33 @@ def form(request):
 
 def log(request):
     return render(request, "registration/logged_out.html")
+
+
+@login_required(login_url='/accounts/login/')
+def upload(request):
+    import pandas as pd
+    if request.method == 'POST' and request.FILES['document']:
+        myfile = request.FILES['document']
+        fs = FileSystemStorage()
+        try:
+            fs.delete("KBJ-Schedule.csv")
+        except(baseError):
+            print("not there")
+        filename = fs.save("KBJ-Schedule.csv", myfile)
+        uploaded_file_url = fs.url(filename)
+        return render(request, 'upload.html', {
+            'uploaded_file_url': uploaded_file_url
+        })
+    return render(request, 'upload.html')
+
+
+def show_upload(request):
+    import pandas as pd
+    import csv
+    a = pd.read_csv("KBJ-Schedule.csv")
+    print(a["TuesdayPM"])
+    a = a.drop(a.columns[[0]], axis=1)
+    html_file = a.to_html()
+    return render(request, 'schedule.html', {
+        'data': html_file
+    })

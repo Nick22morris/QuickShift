@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+{% block content %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Upload</title>
+  <link rel="shortcut icon" type="image/jpg" href="{%  static  '/css/favicon.ico'  %}" />
+  <link rel="stylesheet" type="text/css" href="{%  static  '/css/styles.css'  %}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+  <center>
+    <br>
+    <br>
+    <h1>Upload the schedule</h1>
+    <br>
+    <br>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="file" name="document" />
+      <button type="submit" class="glow-on-hover">Upload Schedule</button>
+    </form>
+    {% if uploaded_file_url %}
+    <br>
+    <h2>File successfully uploaded!</h2>
+    <a href="{% url 'schedule' %}" target="_blank">
+      <br>
+      <button type="button" name="button" class="gb">View it</button>
+    </a>
+    <a href="http://www.quick-shift.us/" target="_blank">
+        <button type="button" name="button" class="gb">Go home</button>
+    </a>
+    {% endif %}
+  </center>
+  {% if 'data.item()' %}
+  <div style="overflow-x:auto;">
+    {{data | safe}}
+    {% endif %}
+    {% endblock %}
+
+</body>
+
+</html>
