@@ -12,9 +12,13 @@
 <body>
   {% if user.is_authenticated %}
   <a href="{% url 'logout' %}">
-        <button class="gb">Log Out</button>
-  <a href="{% url 'upload' %}">
-        <button class="gb" >Upload</button>
+    <button class="gb">Log Out</button>
+  </a>
+  <a href="{% url 'upload' %}" target=_blank>
+    <button class="gb">Upload</button>
+  </a>
+  <a href="{% url 'schedule' %}" target=_blank>
+    <button class="gb">Upload</button>
   </a>
   {% else %}
   <!-- logs in user -->
