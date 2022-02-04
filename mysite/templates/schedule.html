@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+{% block content %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>View</title>
+  <link rel="shortcut icon" type="image/jpg" href="{%  static  '/css/favicon.ico'  %}" />
+  <link rel="stylesheet" type="text/css" href="{%  static  '/css/styles.css'  %}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+  <center>
+  <h1>Current Schedule</h1>
+  <br>
+  {% if 'data.item()' %}
+  <div style="overflow-x:auto;" style="overflow-y:auto;"style="padding:50px 50px 50px 50px;">
+  {{data | safe}}
+  </div>
+  {% endif %}
+  {% endblock %}
+  </center>
+
+</body>
+
+</html>
