@@ -5,6 +5,7 @@
 <head>
   <meta charset="utf-8">
   <title>QuickShift</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="shortcut icon" type="image/jpg" href="{%  static  '/css/favicon.ico'  %}" />
   <link rel="stylesheet" type="text/css" href="{%  static  '/css/styles.css'  %}">
 </head>
@@ -41,17 +42,17 @@
     <div id="container">
       <div id="left">
         <a href="https://docs.google.com/spreadsheets/d/1mdYQXq-JlzXvvK66ptzu_WrnIr9L1lZyzeri2RIEiV8/edit?usp=sharing" target="_blank">
-          <h3>Access Availability</h3>
+          <h3>Availability</h3>
         </a>
       </div>
       <div id="middle">
         <a href="https://docs.google.com/spreadsheets/d/1kN_RPyl7DcgNLTdD6GiSgOO0G8OL1gMp5PBAlD4J6so/edit?usp=sharing" target="_blank">
-          <h3>Access Requests Sheet</h3>
+          <h3>Requests Off</h3>
         </a>
       </div>
       <div id="right">
         <a href="https://docs.google.com/spreadsheets/d/196BA2ix84I5JTH5_cCLFZhVjCgb_-nAu4sEQfq7fB0I/edit?usp=sharing" target="_blank">
-          <h3>Access Required Staff Sheet</h3>
+          <h3>Needed Staff</h3>
         </a>
       </div>
     </div>
@@ -61,7 +62,7 @@
   <center>
     <div id="container">
       <div id="left">
-        <button onclick="location.href='{% url 'form' %}'" class="glow-on-hover" type="button">Request Off Form</button>
+        <button onclick="location.href='{% url 'form' %}'" class="glow-on-hover" type="button" target ="_blank">Request Off Form</button>
       </div>
       <div id="middle">
         <button onclick="location.href='{% url 'script' %}'" class="glow-on-hover" type="button">Generate Schedule</button>
