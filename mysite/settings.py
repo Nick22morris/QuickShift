@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'hello'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['quick-shift-usa.herokuapp.com', 'quick-shift.us',
                  'shaped-carp-py5y836rigvqtbzvxajrs9wj.herokudns.com']
