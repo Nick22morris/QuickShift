@@ -54,7 +54,7 @@ def output(request):
     everyone = []
     sheet_names = sheet_pandas["Name"].to_list()
     total_servers = len(sheet_names) - 1
-
+    capacity_list = sheet_pandas["Highest Section"].to_list()
     # Creates required staff data
     sheet3 = client.open('Required Staff')
     instance = sheet3.get_worksheet(0)
@@ -83,6 +83,7 @@ def output(request):
         sheet_days = request_pandas["What day would you like to request off?"].to_list(
         )
         counter = 0
+        server_section = 1
         while len(people) < length:
             # Selects random person
             random_number = random.randint(0, total_servers)
@@ -108,8 +109,15 @@ def output(request):
                 if random_person not in everyone:
                     if random_person not in people:
                         if has_not_requested_off:
-                            people.append(random_person)
-                            everyone.append(random_person)
+                            if shift == "s":
+                                max_capacity = capacity_list[random_number]
+                                if server_section >= max_capacity:
+                                    people.append(random_person)
+                                    everyone.append(random_person)
+                                    server_section += 1
+                            else:
+                                people.append(random_person)
+                                everyone.append(random_person)
             counter += 1
         return people
 
@@ -155,9 +163,17 @@ def output(request):
         col = 1
 
         def quick_write(position, text):
+            sec = 1
             for x in position:
                 val = sheet_names.index(x) + 1
-                worksheet.write(val, all_shifts.index(shift) + 1,     text)
+                if text == "Server":
+                    msg = f"{sec}: {text}"
+                    worksheet.write(val, all_shifts.index(
+                        shift) + 1,     msg)
+                    sec += 1
+                else:
+                    worksheet.write(val, all_shifts.index(
+                        shift) + 1,     text)
 
         quick_write(server, "Server")
         quick_write(hostess, "H/G")
