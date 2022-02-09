@@ -119,46 +119,6 @@ def output(request):
     row = 0
     col = 0
 
-    # Generates all of the people for one day
-    # def day(shift):
-    #     global row
-    #     global col
-    #     sundayAM_servers = generate(shift, 3)
-    #     sundayAM_host = generate(shift, 5)
-    #     sundayAM_bar = generate(shift, 7)
-    #     sundayAM_runner = generate(shift, 11)
-    #     sundayAM_expo = generate(shift, 13)
-    #     day = (
-    #         sundayAM_servers,
-    #         sundayAM_host,
-    #         sundayAM_bar,
-    #         sundayAM_runner,
-    #     )
-    #     for item in sundayAM_servers:
-    #         worksheet.write(row, col,     item)
-    #         col += 1
-    #     row += 1
-    #     col = 0
-    #     for item in sundayAM_host:
-    #         worksheet.write(row, col,     item)
-    #         col += 1
-    #     row += 1
-    #     col = 0
-    #     for item in sundayAM_bar:
-    #         worksheet.write(row, col,     item)
-    #         col += 1
-    #     row += 1
-    #     col = 0
-    #     for item in sundayAM_runner:
-    #         worksheet.write(row, col,     item)
-    #         col += 1
-    #     row += 1
-    #     col = 0
-    #     for item in sundayAM_expo:
-    #         worksheet.write(row, col,     item)
-    #         col += 1
-    #     row += 2
-    #     col = 0
     all_shifts = [
         "SundayAM",
         "SundayPM",
@@ -274,11 +234,19 @@ def upload(request):
     if request.method == 'POST' and request.FILES['document']:
         myfile = request.FILES['document']
         fs = FileSystemStorage()
+        tp = type(myfile)
+        print(f"The file is of type{tp}")
         try:
             fs.delete("KBJ-Schedule.csv")
         except(baseError):
-            print("not there")
+            print("Could not locate CSV")
+        try:
+            fs.delete("KBJ-Schedule.xlsx")
+        except(baseError):
+            print("Could not locate XLSX")
         filename = fs.save("KBJ-Schedule.csv", myfile)
+        tp = type(filename)
+        print(f"The file is of type{tp}")
         uploaded_file_url = fs.url(filename)
         return render(request, 'upload.html', {
             'uploaded_file_url': uploaded_file_url
@@ -289,9 +257,16 @@ def upload(request):
 def show_upload(request):
     import pandas as pd
     import csv
-    a = pd.read_csv("KBJ-Schedule.csv")
-    print(a["TuesdayPM"])
-    a = a.drop(a.columns[[0]], axis=1)
+    a = pd.read_excel("shift.xlsx")
+    try:
+        a = pd.read_csv("KBJ-Schedule.csv")
+        a = a.drop(a.columns[[0]], axis=1)
+    except BaseException:
+        print("not csv")
+    try:
+        a = pd.read_excel("KBJ-Schedule.csv")
+    except BaseException:
+        print("not excel")
     html_file = a.to_html()
     return render(request, 'schedule.html', {
         'data': html_file
