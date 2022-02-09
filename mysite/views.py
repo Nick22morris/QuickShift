@@ -166,14 +166,36 @@ def output(request):
             sec = 1
             for x in position:
                 val = sheet_names.index(x) + 1
-                if text == "Server":
-                    msg = f"{sec}: {text}"
-                    worksheet.write(val, all_shifts.index(
-                        shift) + 1,     msg)
-                    sec += 1
+                msg = "error"
+                if "AM" in shift:
+                    if text == "Bar":
+                        msg = "10:00: Bar"
+                    if text == "H/G":
+                        msg = "11:00: H/G"
+                    if text == "Server":
+                        msg = f"10:00: {sec}"
+                    if text == "Expo":
+                        msg = "10:00: Expo"
                 else:
-                    worksheet.write(val, all_shifts.index(
-                        shift) + 1,     text)
+                    if text == "Bar":
+                        msg = "4:00: Bar"
+                    if text == "H/G":
+                        if sec == 1:
+                            msg = "4:00: H/G"
+                        else:
+                            msg = "5:00: H/G"
+                    if text == "Server":
+                        if "Fri" in shift or "Sat" in shift or "Sun" in shift:
+                            msg = f"4:00: {sec}"
+                        else:
+                            if sec <= 2:
+                                msg = f"5:00: {sec}"
+                            else:
+                                msg = f"4:00: {sec}"
+                    if text == "Expo":
+                        msg = "4:00: Expo"
+                worksheet.write(val, all_shifts.index(shift) + 1,     msg)
+                sec += 1
 
         quick_write(server, "Server")
         quick_write(hostess, "H/G")
