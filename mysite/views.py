@@ -63,16 +63,16 @@ def output(request):
 
     def generate(day, shift):
         it = 0
-        if shift == 3:
+        if shift == "s":
             it = 0
-        elif shift == 5:
-            it = 2
-        elif shift == 7:
+        elif shift == "b":
             it = 1
-        elif shift == 11:
-            it = 4
-        elif shift == 13:
+        elif shift == "h":
+            it = 2
+        elif shift == "e":
             it = 3
+        elif shift == "f":
+            it = 4
         needed_list = needed_pandas[day].to_list()
         length = needed_list[it]
         people = []
@@ -84,9 +84,10 @@ def output(request):
         )
         counter = 0
         while len(people) < length:
+            # Selects random person
             random_number = random.randint(0, total_servers)
             # Availability of selected person
-            random_shift = int(sheet_collumn[random_number])
+            random_shift = sheet_collumn[random_number]
             # Name of person selected
             random_person = sheet_names[random_number]
 
@@ -103,8 +104,7 @@ def output(request):
             if counter > 200:
                 break
             # Determnes if person can work that shift
-            mod = int(random_shift) % int(shift)
-            if int(mod) == 0:
+            if shift in random_shift:
                 if random_person not in everyone:
                     if random_person not in people:
                         if has_not_requested_off:
@@ -146,11 +146,11 @@ def output(request):
 
     def complex(shift):
         global row
-        server = generate(shift, 3)
-        hostess = generate(shift, 5)
-        bartender = generate(shift, 7)
-        runner = generate(shift, 11)
-        expo = generate(shift, 13)
+        server = generate(shift, "s")
+        hostess = generate(shift, "h")
+        bartender = generate(shift, "b")
+        runner = generate(shift, "f")
+        expo = generate(shift, "e")
 
         col = 1
 
