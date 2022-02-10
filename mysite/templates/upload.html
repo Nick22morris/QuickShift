@@ -9,6 +9,7 @@
   <link rel="shortcut icon" type="image/jpg" href="{%  static  '/css/favicon.ico'  %}" />
   <link rel="stylesheet" type="text/css" href="{%  static  '/css/styles.css'  %}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -26,21 +27,16 @@
     {% if uploaded_file_url %}
     <br>
     <h2>File successfully uploaded!</h2>
-    <a href="{% url 'schedule' %}" target="_blank">
-      <br>
-      <button type="button" name="button" class="gb">View it</button>
-    </a>
+    <div style="overflow-x:auto;">
+      {{myurl | safe}}
+    </div>
+
     <a href="http://www.quick-shift.us/">
         <button type="button" name="button" class="gb">Go home</button>
     </a>
     {% endif %}
   </center>
-  {% if 'data.item()' %}
-  <div style="overflow-x:auto;">
-    {{data | safe}}
-    {% endif %}
-    {% endblock %}
-
 </body>
 
 </html>
+{% endblock %}

@@ -15,10 +15,10 @@
   <a href="{% url 'logout' %}">
     <button class="gb">Log Out</button>
   </a>
-  <a href="{% url 'upload-plano' %}" target=_blank>
+  <a href="{% url 'upload-pizza' %}" target=_blank>
     <button class="gb">Upload</button>
   </a>
-  <a href="{% url 'schedule-plano' %}" target=_blank>
+  <a href="{% url 'schedule-pizza' %}" target=_blank>
     <button class="gb">Schedule</button>
   </a>
   {% else %}
@@ -41,17 +41,17 @@
   <center>
     <div id="container">
       <div id="left">
-        <a href="https://docs.google.com/spreadsheets/d/1mdYQXq-JlzXvvK66ptzu_WrnIr9L1lZyzeri2RIEiV8/edit?usp=sharing" target="_blank">
+        <a href="https://docs.google.com/spreadsheets/d/19-Ye60VNYV2guOUPsdtJ3YRGiDmhSFkz24f5qM9ECYA/edit?usp=sharing" target="_blank">
           <h3>Availability</h3>
         </a>
       </div>
       <div id="middle">
-        <a href="https://docs.google.com/spreadsheets/d/1kN_RPyl7DcgNLTdD6GiSgOO0G8OL1gMp5PBAlD4J6so/edit?usp=sharing" target="_blank">
+        <a href="https://docs.google.com/spreadsheets/d/1b40HutTE9iYh9Y7mRCXHHnKLz9MBBl4kudHqQenxCBc/edit?usp=sharing" target="_blank">
           <h3>Requests Off</h3>
         </a>
       </div>
       <div id="right">
-        <a href="https://docs.google.com/spreadsheets/d/196BA2ix84I5JTH5_cCLFZhVjCgb_-nAu4sEQfq7fB0I/edit?usp=sharing" target="_blank">
+        <a href="https://docs.google.com/spreadsheets/d/1WOgg0WKVu95cbt_u1S2iBPysuHf7jZXCu3wiIsMVGLk/edit?usp=sharing" target="_blank">
           <h3>Needed Staff</h3>
         </a>
       </div>
@@ -62,14 +62,15 @@
   <center>
     <div id="container">
       <div id="left">
-        <button onclick="location.href='{% url 'form' %}'" class="glow-on-hover" type="button" target ="_blank">Request Off Form</button>
+        <a href='https://forms.gle/xmizSA3vgS8hGEk57' target ="_blank">
+          <button class="glow-on-hover" type="button">Request Off Form</button>
+        </a>
       </div>
       <div id="middle">
-        <button onclick="location.href='{% url 'plano_script' %}'" class="glow-on-hover" type="button">Generate Schedule</button>
+        <button onclick="location.href='{% url 'pizza_script' %}'" class="glow-on-hover" type="button">Generate Schedule</button>
       </div>
       <div id="right">
         <button onclick="exportData()" class="glow-on-hover">Download Schedule</button>
-        </a>
       </div>
     </div>
   </center>

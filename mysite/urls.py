@@ -19,12 +19,36 @@ from django.conf.urls import include
 from . import views
 urlpatterns = [
     path(r'admin/', admin.site.urls),
-    path(r'', views.button),
-    path(r'home', views.button),
-    path(r'generated-schedule', views.output, name="script"),
+    path(r'', views.home),
+    path(r'hub', views.home, name="start"),
+    # Plano
+    path(r'kbj-plano', views.button, name='kbj-plano'),
+    path(r'kbj-plano-schedule', views.kbjplano, name="plano_script"),
     path(r'request-off', views.form, name="form"),
-    path(r'upload', views.upload, name="upload"),
-    path(r'schedule', views.show_upload, name="schedule"),
+    path(r'upload-plano', views.upload_plano, name="upload-plano"),
+    path(r'schedule-plano', views.show_plano, name="schedule-plano"),
+    # Frisco
+    path(r'kbj-frisco', views.kbjfrisco, name='kbj-frisco'),
+    path(r'kbj-frisco-schedule', views.kbjfrisco_schedule, name="frisco_script"),
+    path(r'upload-frisco', views.upload_frisco, name="upload-frisco"),
+    path(r'schedule-frisco', views.show_frisco, name="schedule-frisco"),
+    # Pizza
+    path(r'pizza', views.pizza, name='pizza'),
+    path(r'pizza-schedule', views.pizza_schedule, name="pizza_script"),
+    path(r'upload-pizza', views.upload_pizza, name="upload-pizza"),
+    path(r'schedule-pizza', views.show_pizza, name="schedule-pizza"),
+    # WFG
+    path(r'wood-fire-grill', views.wood, name='wood-fire-grill'),
+    path(r'wood-fire-grill-schedule', views.wood_schedule,
+         name="wood-fire-grill_script"),
+    path(r'upload-WFG', views.upload_wood, name="upload-WFG"),
+    path(r'schedule-WFG', views.show_wood, name="schedule-WFG"),
+    # Pizza
+    path(r'italian', views.italian, name='italian'),
+    path(r'italian-schedule', views.italian_schedule, name="italian-script"),
+    path(r'upload-italian', views.upload_italian, name="upload-italian"),
+    path(r'schedule-italian', views.show_italian, name="schedule-italian"),
+
     path(r'logout', views.log, name="log"),
     path('accounts/', include('django.contrib.auth.urls')),
 ]

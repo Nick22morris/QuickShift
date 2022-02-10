@@ -10,7 +10,57 @@ def button(request):
 
 
 @login_required(login_url='/accounts/login/')
-def output(request):
+def home(request):
+    return render(request, "hub.html")
+
+
+@login_required(login_url='/accounts/login/')
+def kbjplano(request):
+    return output(request, 'Kennys Availability', 'Request off', 'Required Staff', 'home.html')
+
+
+@login_required(login_url='/accounts/login/')
+def kbjfrisco(request):
+    return render(request, "frisco.html")
+
+
+@login_required(login_url='/accounts/login/')
+def kbjfrisco_schedule(request):
+    return output(request, 'KBJFrisco Availability', 'KBJFrisco Request off', 'Required Staff - KBJFrisco', 'frisco.html')
+
+
+@login_required(login_url='/accounts/login/')
+def pizza(request):
+    return render(request, "pizza.html")
+
+
+@login_required(login_url='/accounts/login/')
+def pizza_schedule(request):
+    return output(request, 'Pizza Availability', 'Pizza Request off', 'Required Staff - KBJFrisco', 'pizza.html')
+
+
+@login_required(login_url='/accounts/login/')
+def wood(request):
+    return render(request, "wood.html")
+
+
+@login_required(login_url='/accounts/login/')
+def wood_schedule(request):
+    return output(request, 'WFG Availability', 'WFG Request off', 'Required Staff - WFG', 'wood.html')
+
+
+@login_required(login_url='/accounts/login/')
+def italian(request):
+    return render(request, "italian.html")
+
+
+@login_required(login_url='/accounts/login/')
+def italian_schedule(request):
+    return output(request, 'Italian Availability', 'Italian Request off', 'Required Staff - Italian', 'italian.html')
+
+
+@login_required(login_url='/accounts/login/')
+def output(request, availability_name, requests_name, staff_name, page):
     import random
     import xlsxwriter
     import gspread
@@ -27,7 +77,7 @@ def output(request):
     # authorize the clientsheet
     client = gspread.authorize(creds)
     # get the instance of the Spreadsheet
-    sheet = client.open('Kennys Availability')
+    sheet = client.open(availability_name)
     # get the first sheet of the Spreadsheet
     sheet_instance = sheet.get_worksheet(0)
     # create pandas file
@@ -44,7 +94,7 @@ def output(request):
     # authorize the clientsheet
     client2 = gspread.authorize(creds2)
     # get the instance of the Spreadsheet
-    sheet2 = client.open('Request off')
+    sheet2 = client.open(requests_name)
     # get the first sheet of the Spreadsheet
     sheet_instance2 = sheet2.get_worksheet(0)
     # create pandas file
@@ -56,7 +106,7 @@ def output(request):
     total_servers = len(sheet_names) - 1
     capacity_list = sheet_pandas["Highest Section"].to_list()
     # Creates required staff data
-    sheet3 = client.open('Required Staff')
+    sheet3 = client.open(staff_name)
     instance = sheet3.get_worksheet(0)
     needed_data = instance.get_all_records()
     needed_pandas = pd.DataFrame.from_dict(needed_data)
@@ -255,7 +305,7 @@ def output(request):
     # print(soup)
     # print(type(new_version))
     # print(wb)  # Export the DataFrame (Excel doc) to an html file
-    return render(request, "home.html", {"data": str(soup)})
+    return render(request, page, {"data": str(soup)})
 
 
 def form(request):
@@ -267,7 +317,7 @@ def log(request):
 
 
 @login_required(login_url='/accounts/login/')
-def upload(request):
+def upload(request, file_type):
     import pandas as pd
     if request.method == 'POST' and request.FILES['document']:
         myfile = request.FILES['document']
@@ -275,14 +325,10 @@ def upload(request):
         tp = type(myfile)
         print(f"The file is of type{tp}")
         try:
-            fs.delete("KBJ-Schedule.csv")
+            fs.delete(file_type)
         except(baseError):
             print("Could not locate CSV")
-        try:
-            fs.delete("KBJ-Schedule.xlsx")
-        except(baseError):
-            print("Could not locate XLSX")
-        filename = fs.save("KBJ-Schedule.csv", myfile)
+        filename = fs.save(file_type, myfile)
         tp = type(filename)
         print(f"The file is of type{tp}")
         uploaded_file_url = fs.url(filename)
@@ -292,20 +338,60 @@ def upload(request):
     return render(request, 'upload.html')
 
 
-def show_upload(request):
+def show_upload(request, file_name):
     import pandas as pd
     import csv
     a = pd.read_excel("shift.xlsx")
     try:
-        a = pd.read_csv("KBJ-Schedule.csv")
+        a = pd.read_csv(file_name)
         a = a.drop(a.columns[[0]], axis=1)
     except BaseException:
         print("not csv")
     try:
-        a = pd.read_excel("KBJ-Schedule.csv")
+        a = pd.read_excel(file_name)
     except BaseException:
         print("not excel")
     html_file = a.to_html()
     return render(request, 'schedule.html', {
         'data': html_file
     })
+
+
+def upload_plano(request):
+    return upload(request, "KBJP-Schedule.csv")
+
+
+def show_plano(request):
+    return show_upload(request, "KBJP-Schedule.csv")
+
+
+def upload_frisco(request):
+    return upload(request, "KBJF-Schedule.csv")
+
+
+def show_frisco(request):
+    return show_upload(request, "KBJF-Schedule.csv")
+
+
+def upload_pizza(request):
+    return upload(request, "Pizza-Schedule.csv")
+
+
+def show_pizza(request):
+    return show_upload(request, "Pizza-Schedule.csv")
+
+
+def upload_italian(request):
+    return upload(request, "Italian-Schedule.csv")
+
+
+def show_italian(request):
+    return show_upload(request, "Italian-Schedule.csv")
+
+
+def upload_wood(request):
+    return upload(request, "WFG-Schedule.csv")
+
+
+def show_wood(request):
+    return show_upload(request, "WFG-Schedule.csv")
