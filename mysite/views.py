@@ -394,3 +394,132 @@ def upload_wood(request):
 
 def show_wood(request):
     return show_upload(request, "WFG-Schedule.csv")
+
+
+def get_emails(availability_name):
+    import gspread
+    import pandas as pd
+    from oauth2client.service_account import ServiceAccountCredentials
+
+    # Availability
+    # define the scope
+    scope = ['https://spreadsheets.google.com/feeds',
+             'https://www.googleapis.com/auth/drive']
+    # add credentials to the account
+    creds = ServiceAccountCredentials.from_json_keyfile_name(
+        'autogen3-23b61156b4f9.json', scope)
+    # authorize the clientsheet
+    client = gspread.authorize(creds)
+    # get the instance of the Spreadsheet
+    sheet = client.open(availability_name)
+    # get the first sheet of the Spreadsheet
+    sheet_instance = sheet.get_worksheet(0)
+    # create pandas file
+    sheet_data = sheet_instance.get_all_records()
+    sheet_pandas = pd.DataFrame.from_dict(sheet_data)
+    emails_list = sheet_pandas["Email"]
+    return emails_list
+
+
+def get_message(availability_name):
+    import gspread
+    import pandas as pd
+    from oauth2client.service_account import ServiceAccountCredentials
+
+    # Availability
+    # define the scope
+    scope = ['https://spreadsheets.google.com/feeds',
+             'https://www.googleapis.com/auth/drive']
+    # add credentials to the account
+    creds = ServiceAccountCredentials.from_json_keyfile_name(
+        'autogen3-23b61156b4f9.json', scope)
+    # authorize the clientsheet
+    client = gspread.authorize(creds)
+    # get the instance of the Spreadsheet
+    sheet = client.open(availability_name)
+    # get the first sheet of the Spreadsheet
+    sheet_instance = sheet.get_worksheet(0)
+    # create pandas file
+    sheet_data = sheet_instance.get_all_records()
+    sheet_pandas = pd.DataFrame.from_dict(sheet_data)
+    emails_list = sheet_pandas["Message"]
+    return emails_list[0]
+
+
+def send_mail(body, emails, file):
+    import datetime
+    num = 6 - (datetime.datetime.today().weekday())
+    today = str(datetime.datetime.now() + datetime.timedelta(days=num))
+    today = today[0:10]
+
+    import smtplib
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.text import MIMEText
+    from email.mime.image import MIMEImage
+    from email.mime.application import MIMEApplication
+    sender_email = "quickshiftschedule@gmail.com"
+    receiver_email = "nick88morris22@gmail.com"
+
+    msg = MIMEMultipart()
+    msg['Subject'] = f'Schedule for {today}'
+    msg['From'] = sender_email
+    msg['To'] = receiver_email
+    msg.attach(MIMEText(body))
+    msg.attach(MIMEText("\n\n\n"))
+    pdf = MIMEApplication(open(file, 'rb').read())
+    pdf.add_header('Content-Disposition', 'attachment', filename=file)
+    msg.attach(pdf)
+
+    try:
+        with smtplib.SMTP('smtp.gmail.com', 587) as smtpObj:
+            smtpObj.ehlo()
+            smtpObj.starttls()
+            smtpObj.login("quickshiftschedule@gmail.com", "IloveBurgers!")
+            smtpObj.sendmail(sender_email, receiver_email, msg.as_string())
+    except Exception as e:
+        print(e)
+
+
+def send_plano(request):
+    all_emails = get_emails("Kennys Availability")
+    message = get_message("Kennys Availability")
+    for person in all_emails:
+        send_mail(message, person, "KBJP-Schedule.csv")
+    print("Hello")
+    return button(request)
+
+
+def send_frisco(request):
+    all_emails = get_emails("KBJFrisco Availability")
+    message = get_message("KBJFrisco Availability")
+    for person in all_emails:
+        send_mail(message, person, "KBJF-Schedule.csv")
+    print("Hello")
+    return kbjfrisco(request)
+
+
+def send_pizza(request):
+    all_emails = get_emails("Pizza Availability")
+    message = get_message("Pizza Availability")
+    for person in all_emails:
+        send_mail(message, person, "Pizza-Schedule.csv")
+    print("Hello")
+    return pizza(request)
+
+
+def send_italian(request):
+    all_emails = get_emails("Italian Availability")
+    message = get_message("Italian Availability")
+    for person in all_emails:
+        send_mail(message, person, "Italian-Schedule.csv")
+    print("Hello")
+    return italian(request)
+
+
+def send_woodfire(request):
+    all_emails = get_emails("WFG Availability")
+    message = get_message("WFG Availability")
+    for person in all_emails:
+        send_mail(message, person, "WFG-Schedule.csv")
+    print("Hello")
+    return wood(request)

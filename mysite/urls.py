@@ -51,4 +51,10 @@ urlpatterns = [
 
     path(r'logout', views.log, name="log"),
     path('accounts/', include('django.contrib.auth.urls')),
+
+    path(r'send_plano', views.send_plano, name="send_plano"),
+    path(r'send_frisco', views.send_frisco, name="send_frisco"),
+    path(r'send_pizza', views.send_pizza, name="send_pizza"),
+    path(r'send_italian', views.send_italian, name="send_italian"),
+    path(r'send_woodfire', views.send_woodfire, name="send_woodfire"),
 ]

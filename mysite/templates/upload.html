@@ -27,10 +27,24 @@
     {% if uploaded_file_url %}
     <br>
     <h2>File successfully uploaded!</h2>
+    <br>
+    <button onclick="location.href='{% url 'send_plano' %}'" class="glow-on-hover" type="button">Send KBJP Schedule</button>
+    <br>
+    <br>
+    <button onclick="location.href='{% url 'send_frisco' %}'" class="glow-on-hover" type="button">Send KBJF Schedule</button>
+    <br>
+    <br>
+    <button onclick="location.href='{% url 'send_pizza' %}'" class="glow-on-hover" type="button">Send Pizza Schedule</button>
+    <br>
+    <br>
+    <button onclick="location.href='{% url 'send_italian' %}'" class="glow-on-hover" type="button">Send KBJP Schedule</button>
+    <br>
+    <br>
+    <button onclick="location.href='{% url 'send_woodfire' %}'" class="glow-on-hover" type="button">Send KBJP Schedule</button>
     <div style="overflow-x:auto;">
       {{myurl | safe}}
     </div>
-
+    <br>
     <a href="http://www.quick-shift.us/">
         <button type="button" name="button" class="gb">Go home</button>
     </a>
