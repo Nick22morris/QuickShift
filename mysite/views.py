@@ -458,7 +458,7 @@ def send_mail(body, emails, file):
     from email.mime.image import MIMEImage
     from email.mime.application import MIMEApplication
     sender_email = "quickshiftschedule@gmail.com"
-    receiver_email = "nick88morris22@gmail.com"
+    receiver_email = emails
 
     msg = MIMEMultipart()
     msg['Subject'] = f'Schedule for {today}'
@@ -486,7 +486,7 @@ def send_plano(request):
     for person in all_emails:
         send_mail(message, person, "KBJP-Schedule.csv")
     print("Hello")
-    return button(request)
+    return render(request, "home.html")
 
 
 def send_frisco(request):
@@ -495,7 +495,7 @@ def send_frisco(request):
     for person in all_emails:
         send_mail(message, person, "KBJF-Schedule.csv")
     print("Hello")
-    return kbjfrisco(request)
+    return render(request, "frisco.html")
 
 
 def send_pizza(request):
@@ -504,7 +504,7 @@ def send_pizza(request):
     for person in all_emails:
         send_mail(message, person, "Pizza-Schedule.csv")
     print("Hello")
-    return pizza(request)
+    return render(request, "pizza.html")
 
 
 def send_italian(request):
@@ -513,7 +513,7 @@ def send_italian(request):
     for person in all_emails:
         send_mail(message, person, "Italian-Schedule.csv")
     print("Hello")
-    return italian(request)
+    return render(request, "italian.html")
 
 
 def send_woodfire(request):
@@ -522,4 +522,4 @@ def send_woodfire(request):
     for person in all_emails:
         send_mail(message, person, "WFG-Schedule.csv")
     print("Hello")
-    return wood(request)
+    return render(request, "wood.html")
