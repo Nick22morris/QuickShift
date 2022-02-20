@@ -12,6 +12,9 @@
 
 <body>
   {% if user.is_authenticated %}
+  <a href="{% url 'start' %}">
+    <button class="gb">Home</button>
+  </a>
   <a href="{% url 'logout' %}">
     <button class="gb">Log Out</button>
   </a>
@@ -32,12 +35,11 @@
   </a>
   {% endif %}
   <center>
-    <h1>QuickShift</h1>
-  </center>
+    <img src="{%  static  '/css/logo.png'  %}" alt="QuickShift Logo" style="width:320px;height:200px;">
+    </center>
   <!-- logs out user -->
-
   <br>
-  <br>
+  <center>
   <center>
     <div id="container">
       <div id="left">
