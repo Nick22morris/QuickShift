@@ -53,7 +53,7 @@ input[type=file] {
   color: white;
 }
 h2 {
-color: #FFFFFF;}
+color: #00bbf9;}
 label {
   color:white;
 }
@@ -197,3 +197,27 @@ tr:hover {background-color: #00bbf9;}
 hr { display: block; height: 1px;
     border: 0; border-top: 1px solid #ccc;
     margin: 1em 0; padding: 0; width: 75%; }
+p {
+  color: white;
+}
+.big {
+  padding-top: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
+  padding-left: 50px;
+}
+.medium {
+    padding-right: 50px;
+    padding-bottom: 20px;
+    padding-left: 70px;
+}
+.disclaimer {
+  padding-top: 20px;
+  padding-right: 10px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+}
+.offset {
+  padding-top: 20px;
+  padding-left: 20px;
+}

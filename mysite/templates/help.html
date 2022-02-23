@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Help</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="shortcut icon" type="image/jpg" href="{%  static  '/css/favicon.ico'  %}" />
+  <link rel="stylesheet" type="text/css" href="{%  static  '/css/styles.css'  %}">
+</head>
+
+<body>
+  <div class="offset">
+    <a href="{% url 'start' %}">
+      <button class="gb">Home</button>
+    </a>
+  </div>
+  <center>
+    <img src="{%  static  '/css/logo.png'  %}" alt="QuickShift Logo" style="width:320px;height:200px;">
+  </center>
+  <div class="big">
+    <h1>Home</h1>
+    <p>When you navigate to QuickShift you will arrive at the home screen. There, you will be greeted by 10 buttons, the top five serve as portals to the given restaurant's hub. To access these links you will need to sign in and have a manager account. Below, are the links for non-manager staff to view the current schedule.</p>
+  </div>
+  <center>
+  <hr>
+  </center>
+  <div class="big">
+    <h1>Restaurant Manager Hub</h1>
+    <p>Upon clicking one of the top five links on the home page, you will be able to access the Restaurant Manager Hub. If you are not logged in already you will be prompted to log in. Once that is completed, you will be greeted with an array of buttons and links.</p>
+  </div>
+  <div class="medium">
+    <h2>The Home Button</h2>
+    <p>This button will send you back to the home page.</p>
+  </div>
+  <div class="medium">
+    <h2>The Log Out Button</h2>
+    <p>This button will log you out and send you back to the homepage.</p>
+  </div>
+  <div class="medium">
+    <h2>The Upload Button</h2>
+    <p>This button will open a new tab titled "upload." In this tab, you will be able to upload the current schedule and email it. To begin, select the choose file button and choose the file you wish to upload. Once you have selected the file, click open. Note: this file must end in .csv or .xlxs. Once you are done click Upload Schedule, do not click this if no file is uploaded. If you uploaded the file correctly, you should be greeted with a "File Uploaded Successfully." Below, you will see 5 buttons corresponding to each restaurant, upon clicking any of these buttons it will send the schedule to all the staff and return you to Home.</p>
+  </div>
+  <div class="medium">
+    <h2>The Schedule Button</h2>
+    <p>This button will send you back to a public link in which anyone can view the current uploaded schedule.</p>
+  </div>
+  <div class="medium">
+    <h2>The Availability Link</h2>
+    <p>This link will send you back to a Google Sheet database that stores all staffs availability, email, and eligible positions. The first column will be everybody's email address. If there is no email address for a staff member, fill their box with "a@b.com." The second column houses everybody’s names. The next 14 columns hold everybody's availability (alternating between AM and PM). If that person is not available, put "x". If they are available to the server, put "s". If they are available to bartend, put "b". If they are available to host, put "h". If they are available to expo, put "e". The last column located at R2 holds the message that will be sent in the email containing the schedule. If you wish to type enter type "\n".</p>
+  </div>
+  <div class="medium">
+    <h2>The Requests Off link</h2>
+    <p>Upon clicking this link you will be redirected to Google Sheets, where you can view all requests. The Algorithm will override requests if there is not sufficient staff available. After generating the schedule, remember to delete all old requests.</p>
+  </div>
+  <div class="medium">
+    <h2>The Needed Staff link</h2>
+    <p>Upon clicking this link you will be redirected to Google Sheets, where you can view all the amount of needed staff for each position.</p>
+  </div>
+  <div class="medium">
+    <h2>The Request Off Form Button</h2>
+    <p>Upon clicking this link you will be redirected to Google Form, where staff can request off for a shift. You can share this link with all staff as well as create a QR code for in person at the restaurant. No sign-in or account is necessary for accessing this link.</p>
+  </div>
+  <div class="medium">
+    <h2>The Generate Button</h2>
+    <p>With a click of this button, the schedule will be generated and displayed below. Be patient because it may take a moment.</p>
+  </div>
+  <div class="medium">
+    <h2>The Download Button</h2>
+    <p>By clicking this link you can download the file as a .csv file.</p>
+  </div>
+  <center>
+  <hr>
+  </center>
+  <div class="disclaimer">
+    <p><i>*The QuickShift Website was developed exclusively by Nick Morris. Nick Morris owns all intellectual property and possesses the intellectual rights in perpetuity throughout the universe. Any attempt to infringe upon these rights shall be met with legal action.</i></p>
+  </div>
+  </body>
+
+</html>

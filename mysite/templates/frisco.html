@@ -11,19 +11,22 @@
 </head>
 
 <body>
-  {% if user.is_authenticated %}
-  <a href="{% url 'start' %}">
-    <button class="gb">Home</button>
-  </a>
-  <a href="{% url 'logout' %}">
-    <button class="gb">Log Out</button>
-  </a>
-  <a href="{% url 'upload-frisco' %}" target=_blank>
-    <button class="gb">Upload</button>
-  </a>
-  <a href="{% url 'schedule-frisco' %}" target=_blank>
-    <button class="gb">Schedule</button>
-  </a>
+  <div class="offset">
+    {% if user.is_authenticated %}
+    <a href="{% url 'start' %}">
+      <button class="gb">Home</button>
+    </a>
+    <a href="{% url 'logout' %}">
+      <button class="gb">Log Out</button>
+    </a>
+    <a href="{% url 'upload-frisco' %}" target=_blank>
+      <button class="gb">Upload</button>
+    </a>
+    <a href="{% url 'schedule-frisco' %}" target=_blank>
+      <button class="gb">Schedule</button>
+    </a>
+  </div>
+
   {% else %}
   <!-- logs in user -->
   <a href="{% url 'login'%}">

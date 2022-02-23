@@ -9,6 +9,10 @@ def button(request):
     return render(request, "home.html")
 
 
+def help(request):
+    return render(request, "help.html")
+
+
 def home(request):
     return render(request, "hub.html")
 

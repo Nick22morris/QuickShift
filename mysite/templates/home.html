@@ -12,18 +12,21 @@
 
 <body>
   {% if user.is_authenticated %}
-  <a href="{% url 'start' %}">
-    <button class="gb">Home</button>
-  </a>
-  <a href="{% url 'logout' %}">
-    <button class="gb">Log Out</button>
-  </a>
-  <a href="{% url 'upload-plano' %}" target=_blank>
-    <button class="gb">Upload</button>
-  </a>
-  <a href="{% url 'schedule-plano' %}" target=_blank>
-    <button class="gb">Schedule</button>
-  </a>
+  <div class="offset">
+    <a href="{% url 'start' %}">
+      <button class="gb">Home</button>
+    </a>
+    <a href="{% url 'logout' %}">
+      <button class="gb">Log Out</button>
+    </a>
+    <a href="{% url 'upload-plano' %}" target=_blank>
+      <button class="gb">Upload</button>
+    </a>
+    <a href="{% url 'schedule-plano' %}" target=_blank>
+      <button class="gb">Schedule</button>
+    </a>
+  </div>
+
   {% else %}
   <!-- logs in user -->
   <a href="{% url 'login'%}">
