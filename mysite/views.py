@@ -4,7 +4,6 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
 
-@login_required(login_url='/accounts/login/')
 def help(request):
     return render(request, "help.html")
 
@@ -13,6 +12,7 @@ def why(request):
     return render(request, "why.html")
 
 
+@login_required(login_url='/accounts/login/')
 def button(request):
     return render(request, "home.html")
 
