@@ -22,6 +22,7 @@ urlpatterns = [
     path(r'', views.home),
     path(r'hub', views.home, name="start"),
     path(r'help', views.help, name="help"),
+    path(r'why', views.why, name="why"),
     # Plano
     path(r'kbj-plano', views.button, name='kbj-plano'),
     path(r'kbj-plano-schedule', views.kbjplano, name="plano_script"),
