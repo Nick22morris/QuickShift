@@ -13,6 +13,7 @@
 <body>
   {% if user.is_authenticated %}
   <div class="offset">
+    <h2 style="padding-right:30px;">Howdy {{request.user.first_name}}!</h2>
     <a href="{% url 'start' %}">
       <button class="gb">Home</button>
     </a>
@@ -26,6 +27,7 @@
       <button class="gb">Schedule</button>
     </a>
   </div>
+
 
   {% else %}
   <!-- logs in user -->
