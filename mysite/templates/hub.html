@@ -13,31 +13,34 @@
 <body>
   <div class="offset">
     {% if user.is_authenticated %}
-      <h2 style="padding-right:30px;">Howdy {{request.user.first_name}}!</h2>
-      <a href="{% url 'help' %}">
-        <button class="gb">Help</button>
-      </a>
-      <a href="{% url 'logout' %}">
-        <button class="gb">Log Out</button>
-      </a>
+    <h2 style="padding-right:30px;">Howdy {{request.user.first_name}}!</h2>
+    <a href="{% url 'help' %}">
+      <button class="gb">Help</button>
+    </a>
+    <a href="{% url 'logout' %}">
+      <button class="gb">Log Out</button>
+    </a>
     {% else %}
     <!-- logs in user -->
     <a href="{% url 'login' %}">
       <button class="gb">Log In</button>
     </a>
-      <a href="{% url 'help' %}">
-        <button class="gb">Help</button>
-      </a>
+    <a href="{% url 'help' %}">
+      <button class="gb">Help</button>
+    </a>
+    <a href="{% url 'why' %}">
+      <button class="gb">Why?</button>
+    </a>
     {% endif %}
   </div>
   <center>
     <img src="{%  static  '/css/logo.png'  %}" alt="QuickShift Logo" style="width:320px;height:200px;">
-    </center>
-    <center>
-      <div class="offset">
-        <h2>Restaurant Manager Hub</h2>
-        <br>
-      </div>
+  </center>
+  <center>
+    <div class="offset">
+      <h2>Restaurant Manager Hub</h2>
+      <br>
+    </div>
     <div id="container">
       <div id="left">
         <button onclick="location.href='{% url 'kbj-plano' %}'" class="glow-on-hover" type="button" target="_blank">KBJ Plano</button>
@@ -144,7 +147,7 @@
     </div>
 
   </center>
-<br><br>
+  <br><br>
 </body>
 
 </html>
