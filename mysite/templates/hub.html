@@ -30,11 +30,14 @@
       </a>
     {% endif %}
   </div>
-
   <center>
     <img src="{%  static  '/css/logo.png'  %}" alt="QuickShift Logo" style="width:320px;height:200px;">
     </center>
     <center>
+      <div class="offset">
+        <h2>Restaurant Manager Hub</h2>
+        <br>
+      </div>
     <div id="container">
       <div id="left">
         <button onclick="location.href='{% url 'kbj-plano' %}'" class="glow-on-hover" type="button" target="_blank">KBJ Plano</button>
@@ -64,16 +67,19 @@
   <center>
     <hr>
     <br>
-    <br>
+    <div class="offset">
+      <h2>Current Schedule</h2>
+      <br>
+    </div>
     <div id="container">
       <div id="left">
         <a href="{% url 'schedule-plano' %}" target="_blank">
-          <h3>KBJ Plano Schedule</h3>
+          <h3>KBJ Plano</h3>
         </a>
       </div>
       <div id="right">
         <a href="{% url 'schedule-frisco' %}" target="_blank">
-          <h3>KBJ Frisco Schedule</h3>
+          <h3>KBJ Frisco</h3>
         </a>
       </div>
     </div>
@@ -81,23 +87,64 @@
     <div id="container">
       <div id="left">
         <a href="{% url 'schedule-pizza' %}" target="_blank">
-          <h3>Pizza Schedule</h3>
+          <h3>Pizza</h3>
         </a>
       </div>
       <div id="middle">
         <a href="{% url 'schedule-WFG' %}" target="_blank">
-          <h3>KWFG Schedule</h3>
+          <h3>KWFG</h3>
         </a>
       </div>
       <div id="right">
         <a href="{% url 'schedule-italian' %}" target="_blank">
-          <h3>Italian Schedule</h3>
+          <h3>Italian</h3>
         </a>
       </div>
     </div>
 
   </center>
+  <br>
+  <br>
+  <center>
+    <hr>
+    <br>
+    <div class="offset">
+      <h2>Request Off</h2>
+      <br>
+    </div>
+    <div id="container">
+      <div id="left">
+        <a href="{% url 'form' %}" target="_blank">
+          <h3>KBJ Plano</h3>
+        </a>
+      </div>
+      <div id="right">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScFCWalWwjL_hDEP0fmcwi8sS7aWQXpnQKcZFWHUzIhOSImOw/viewform" target="_blank">
+          <h3>KBJ Frisco</h3>
+        </a>
+      </div>
+    </div>
+    <br>
+    <div id="container">
+      <div id="left">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdGUOGyAf7u0zAQqafEmf4OQTwSHCMepDvxeXdLnbkSZpIvdw/viewform" target="_blank">
+          <h3>Pizza</h3>
+        </a>
+      </div>
+      <div id="middle">
+        <a href="https://docs.google.com/forms/u/1/d/e/1FAIpQLSd08YR-Flf0GKE2rs8imUIV8ecHQb09wKT5PoEHnGI9pEPk1Q/viewform?usp=send_form" target="_blank">
+          <h3>KWFG</h3>
+        </a>
+      </div>
+      <div id="right">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScgju_F4jU02LOrIemaiUDG3X5oFaUhvPMS3ia7LEPNoRb6jQ/viewform" target="_blank">
+          <h3>Italian</h3>
+        </a>
+      </div>
+    </div>
 
+  </center>
+<br><br>
 </body>
 
 </html>
