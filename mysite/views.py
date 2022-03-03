@@ -4,6 +4,33 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
 
+def getDate(input):
+    import datetime
+    todayInt = datetime.datetime.today().weekday()
+    sunday = 6 - todayInt
+    num = 0
+    if "Sunday" in input:
+        num = 0
+    if "Monday" in input:
+        num = 1
+    if "Tuesday" in input:
+        num = 2
+    if "Wednesday" in input:
+        num = 3
+    if "Thursday" in input:
+        num = 4
+    if "Friday" in input:
+        num = 5
+    if "Saturday" in input:
+        num = 6
+    dt = datetime.date.today() + datetime.timedelta(sunday + num)
+    month = int(str(dt.strftime("%m")))
+    day = int(str(dt.strftime("%d")))
+    year = int(str(dt.strftime("%y")))
+    comb = f"{month}/{day}/20{year}"
+    return comb
+
+
 def help(request):
     return render(request, "help.html")
 
@@ -110,6 +137,8 @@ def output(request, availability_name, requests_name, staff_name, page):
 
     everyone = []
     sheet_names = sheet_pandas["Name"].to_list()
+    request_dates = request_pandas["Select a date to request off."].to_list()
+    request_shift = request_pandas["Select the shift"].to_list()
     total_servers = len(sheet_names) - 1
     capacity_list = sheet_pandas["Highest Section"].to_list()
     # Creates required staff data
@@ -137,8 +166,6 @@ def output(request, availability_name, requests_name, staff_name, page):
         sheet_collumn = sheet_pandas[day].to_list()
         # Request offs
         request_names = request_pandas["Name"].to_list()
-        sheet_days = request_pandas["What day would you like to request off?"].to_list(
-        )
         counter = 0
         server_section = 1
         while len(people) < length:
@@ -153,8 +180,10 @@ def output(request, availability_name, requests_name, staff_name, page):
             # Determines if person requested off on that shift
             if random_person in request_names:
                 for x in range(len(request_names)):
-                    if random_person == request_names[x] and day == sheet_days[x]:
-                        has_not_requested_off = False
+                    date_in_question = getDate(day)
+                    if random_person == request_names[x] and request_dates[x] in date_in_question:
+                        if request_shift[x] in day or request_shift[x] == "Both":
+                            has_not_requested_off = False
             # Over rides request off if not enough shifts
             if counter > 100:
                 has_not_requested_off = True
