@@ -146,6 +146,23 @@ def output(request, availability_name, requests_name, staff_name, page):
     instance = sheet3.get_worksheet(0)
     needed_data = instance.get_all_records()
     needed_pandas = pd.DataFrame.from_dict(needed_data)
+    workbook = xlsxwriter.Workbook('shift.xlsx')
+    worksheet = workbook.add_worksheet()
+    all_shifts = [
+        "SundayAM",
+        "SundayPM",
+        "MondayAM",
+        "MondayPM",
+        "TuesdayAM",
+        "TuesdayPM",
+        "WednesdayAM",
+        "WednesdayPM",
+        "ThursdayAM",
+        "ThursdayPM",
+        "FridayAM",
+        "FridayPM",
+        "SaturdayAM",
+        "SaturdayPM", ]
 
     def generate(day, shift):
         it = 0
@@ -189,6 +206,8 @@ def output(request, availability_name, requests_name, staff_name, page):
                 has_not_requested_off = True
             # Stops generating if less people availible than shifts
             if counter > 200:
+                tab = all_shifts.index(day) + 1
+                worksheet.write(0, tab,     "Not Full")
                 break
             # Determnes if person can work that shift
             if shift in random_shift:
@@ -207,27 +226,9 @@ def output(request, availability_name, requests_name, staff_name, page):
             counter += 1
         return people
 
-    workbook = xlsxwriter.Workbook('shift.xlsx')
-    worksheet = workbook.add_worksheet()
     global row
     row = 0
     col = 0
-
-    all_shifts = [
-        "SundayAM",
-        "SundayPM",
-        "MondayAM",
-        "MondayPM",
-        "TuesdayAM",
-        "TuesdayPM",
-        "WednesdayAM",
-        "WednesdayPM",
-        "ThursdayAM",
-        "ThursdayPM",
-        "FridayAM",
-        "FridayPM",
-        "SaturdayAM",
-        "SaturdayPM", ]
 
     r = 1
     worksheet.write(0, 0,     " ")
@@ -240,11 +241,11 @@ def output(request, availability_name, requests_name, staff_name, page):
 
     def complex(shift):
         global row
+        bartender = generate(shift, "b")
+        expo = generate(shift, "e")
         server = generate(shift, "s")
         hostess = generate(shift, "h")
-        bartender = generate(shift, "b")
         runner = generate(shift, "f")
-        expo = generate(shift, "e")
 
         col = 1
 
@@ -262,7 +263,11 @@ def output(request, availability_name, requests_name, staff_name, page):
                         msg = f"10:00: {sec}"
                     if text == "Expo":
                         msg = "10:00: Expo"
+                    if text == "Runner":
+                        msg = "12:00 Runner"
                 else:
+                    if text == "Runner":
+                        msg = "4:00 Runner"
                     if text == "Bar":
                         msg = "4:00: Bar"
                     if text == "H/G":
