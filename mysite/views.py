@@ -488,12 +488,15 @@ def get_message(availability_name):
     return emails_list[0]
 
 
-def send_mail(body, emails, file):
+def get_next_week():
     import datetime
     num = 6 - (datetime.datetime.today().weekday())
     today = str(datetime.datetime.now() + datetime.timedelta(days=num))
     today = today[0:10]
+    return f'Schedule for {today}'
 
+
+def send_mail(body, emails, file, subject):
     import smtplib
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
@@ -503,7 +506,7 @@ def send_mail(body, emails, file):
     receiver_email = emails
 
     msg = MIMEMultipart()
-    msg['Subject'] = f'Schedule for {today}'
+    msg['Subject'] = subject
     msg['From'] = sender_email
     msg['To'] = receiver_email
     msg.attach(MIMEText(body))
@@ -525,8 +528,9 @@ def send_mail(body, emails, file):
 def send_plano(request):
     all_emails = get_emails("Kennys Availability")
     message = get_message("Kennys Availability")
+    subject = get(get_next_week)
     for person in all_emails:
-        send_mail(message, person, "KBJP-Schedule.csv")
+        send_mail(message, person, "KBJP-Schedule.csv", subject)
     print("Hello")
     return render(request, "home.html")
 
@@ -534,17 +538,19 @@ def send_plano(request):
 def send_frisco(request):
     all_emails = get_emails("KBJFrisco Availability")
     message = get_message("KBJFrisco Availability")
+    subject = get(get_next_week)
     for person in all_emails:
-        send_mail(message, person, "KBJF-Schedule.csv")
+        send_mail(message, person, "KBJF-Schedule.csv", subject)
     print("Hello")
     return render(request, "frisco.html")
 
 
 def send_pizza(request):
+    subject = get(get_next_week)
     all_emails = get_emails("Pizza Availability")
     message = get_message("Pizza Availability")
     for person in all_emails:
-        send_mail(message, person, "Pizza-Schedule.csv")
+        send_mail(message, person, "Pizza-Schedule.csv", subject)
     print("Hello")
     return render(request, "pizza.html")
 
@@ -552,8 +558,9 @@ def send_pizza(request):
 def send_italian(request):
     all_emails = get_emails("Italian Availability")
     message = get_message("Italian Availability")
+    subject = get(get_next_week)
     for person in all_emails:
-        send_mail(message, person, "Italian-Schedule.csv")
+        send_mail(message, person, "Italian-Schedule.csv", subject)
     print("Hello")
     return render(request, "italian.html")
 
@@ -561,7 +568,79 @@ def send_italian(request):
 def send_woodfire(request):
     all_emails = get_emails("WFG Availability")
     message = get_message("WFG Availability")
+    subject = get(get_next_week)
     for person in all_emails:
-        send_mail(message, person, "WFG-Schedule.csv")
+        send_mail(message, person, "WFG-Schedule.csv", subject)
     print("Hello")
     return render(request, "wood.html")
+
+
+def check_for_cap(request):
+    # from Google import Create_Service
+    import random
+    import xlsxwriter
+    import gspread
+    import pandas as pd
+    from oauth2client.service_account import ServiceAccountCredentials
+
+    scope = ['https://spreadsheets.google.com/feeds',
+             'https://www.googleapis.com/auth/drive']
+    creds = ServiceAccountCredentials.from_json_keyfile_name(
+        'autogen3-23b61156b4f9.json', scope)
+    client = gspread.authorize(creds)
+    sheet = client.open("Request off")
+    sheet_instance = sheet.get_worksheet(0)
+    sheet_data = sheet_instance.get_all_records()
+    sheet_pandas = pd.DataFrame.from_dict(sheet_data)
+    date_list = sheet_pandas["Select a date to request off."].to_list()
+    length = len(date_list)
+    last_request = date_list[length - 1]
+    print(last_request)
+    count = 0
+    for x in date_list:
+        if x == last_request:
+            count += 1
+    if count > 4:
+        email_list = sheet_pandas["Email Address"].to_list()
+        last_person = email_list[length - 1]
+        send_mail("Unfortunately, there have been too many requests for that date; your request has been denied. Sorry for the inconvenience. \n-Kenny's Management",
+                  last_person, "logo.png", "YOUR REQUEST HAS BEEN DENIED")
+        # sheet_instance.delete
+        # Delete Request
+        # CLIENT_SECRET_FILE = 'client_secret.json'
+        # API_NAME = 'sheets'
+        # API_VERSION = 'v4'
+        # SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+        # service = Create_Service(
+        #     CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+        # request_body = {
+        #     'requests': [
+        #         {
+        #             'deleteDimension': {
+        #                 'range': {
+        #                     'sheetID': '373398604',
+        #                     'dimension': 'ROWS',
+        #                     'startIndex': length,
+        #                     'endIndex': length + 1
+        #                 }
+        #             }
+        #         },
+        #         {
+        #             'deleteDimension': {
+        #                 'range': {
+        #                     'sheetID': '373398604',
+        #                     'dimension': 'COLUMNS',
+        #                     'startIndex': 0,
+        #                     'endIndex': 4
+        #                 }
+        #             }
+        #         }
+        #     ]
+        # }
+        # service.spreadsheets().bashUpdate(
+        #     spreadsheetId='373398604',
+        #     body=request_body
+        # ).execute()
+        print("max")
+    print(count)
+    return render(request, "home.html")
