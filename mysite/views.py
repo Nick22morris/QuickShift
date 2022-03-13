@@ -466,6 +466,7 @@ def get_emails(availability_name):
 def get_message(availability_name):
     import gspread
     import pandas as pd
+    import random
     from oauth2client.service_account import ServiceAccountCredentials
 
     # Availability
@@ -485,7 +486,10 @@ def get_message(availability_name):
     sheet_data = sheet_instance.get_all_records()
     sheet_pandas = pd.DataFrame.from_dict(sheet_data)
     emails_list = sheet_pandas["Message"]
-    return emails_list[0]
+    with open('mysite/quotes.txt') as file:
+        all_quotes = file.readlines()
+        quote = random.choice(all_quotes)
+    return f"{emails_list[0]}\n\nHere's your quote for the week:\n{quote}"
 
 
 def get_next_week():
@@ -528,7 +532,7 @@ def send_mail(body, emails, file, subject):
 def send_plano(request):
     all_emails = get_emails("Kennys Availability")
     message = get_message("Kennys Availability")
-    subject = get(get_next_week)
+    subject = get_next_week()
     for person in all_emails:
         send_mail(message, person, "KBJP-Schedule.csv", subject)
     print("Hello")
@@ -538,7 +542,7 @@ def send_plano(request):
 def send_frisco(request):
     all_emails = get_emails("KBJFrisco Availability")
     message = get_message("KBJFrisco Availability")
-    subject = get(get_next_week)
+    subject = get_next_week()
     for person in all_emails:
         send_mail(message, person, "KBJF-Schedule.csv", subject)
     print("Hello")
@@ -546,7 +550,7 @@ def send_frisco(request):
 
 
 def send_pizza(request):
-    subject = get(get_next_week)
+    subject = get_next_week()
     all_emails = get_emails("Pizza Availability")
     message = get_message("Pizza Availability")
     for person in all_emails:
@@ -558,7 +562,7 @@ def send_pizza(request):
 def send_italian(request):
     all_emails = get_emails("Italian Availability")
     message = get_message("Italian Availability")
-    subject = get(get_next_week)
+    subject = get_next_week()
     for person in all_emails:
         send_mail(message, person, "Italian-Schedule.csv", subject)
     print("Hello")
@@ -568,7 +572,7 @@ def send_italian(request):
 def send_woodfire(request):
     all_emails = get_emails("WFG Availability")
     message = get_message("WFG Availability")
-    subject = get(get_next_week)
+    subject = get_next_week()
     for person in all_emails:
         send_mail(message, person, "WFG-Schedule.csv", subject)
     print("Hello")
