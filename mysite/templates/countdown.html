@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>QuickShift</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="shortcut icon" type="image/jpg" href="{%  static  '/css/favicon.ico'  %}" />
+  <link rel="stylesheet" type="text/css" href="{%  static  '/css/styles.css'  %}">
+</head>
+
+<body>
+  <div class="offset">
+    <a href="{% url 'start' %}">
+      <button class="gb">Home</button>
+    </a>
+  </div>
+  <center>
+    <img src="{%  static  '/css/logo.png'  %}" alt="QuickShift Logo" style="width:320px;height:200px;">
+    </center>
+<br><br>
+  <center>
+    <script src="https://cdn.logwork.com/widget/countdown.js"></script>
+<a href="https://logwork.com/countdown-sum5" class="countdown-timer" data-style="circles" data-timezone="America/Chicago" data-textcolor="#00bbf9" data-date="2022-04-17 12:00" data-background="#00bbf9" data-digitscolor="#ffffff" data-unitscolor="#00bbf9">Free Trial Expiration</a>
+  </center
+</body>
+
+</html>

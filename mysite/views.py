@@ -39,6 +39,10 @@ def why(request):
     return render(request, "why.html")
 
 
+def count(request):
+    return render(request, "countdown.html")
+
+
 @login_required(login_url='/accounts/login/')
 def button(request):
     if request.user.is_authenticated:
