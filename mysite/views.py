@@ -186,6 +186,7 @@ def output(request, availability_name, requests_name, staff_name, page):
         counter = 0
         server_section = 1
         while len(people) < length:
+            print(counter)
             # Selects random person
             random_number = random.randint(0, total_servers)
             # Availability of selected person
@@ -195,12 +196,18 @@ def output(request, availability_name, requests_name, staff_name, page):
 
             has_not_requested_off = True
             # Determines if person requested off on that shift
-            if random_person in request_names:
-                for x in range(len(request_names)):
-                    date_in_question = getDate(day)
-                    if random_person == request_names[x] and request_dates[x] in date_in_question:
-                        if request_shift[x] in day or request_shift[x] == "Both":
-                            has_not_requested_off = False
+            date_in_question = getDate(day)
+            max_people = []
+            counter_requests = 0
+            while counter_requests < len(request_dates) - 1:
+                if len(max_people) < 4:
+                    if request_dates[counter_requests] == date_in_question:
+                        if request_shift[counter_requests] in day or request_shift[counter_requests] == "Both":
+                            max_people.append(request_names[counter_requests])
+                counter_requests += 1
+            if random_person in max_people:
+                has_not_requested_off = False
+
             # Over rides request off if not enough shifts
             if counter > 100:
                 has_not_requested_off = True
@@ -217,6 +224,7 @@ def output(request, availability_name, requests_name, staff_name, page):
                             if shift == "s":
                                 max_capacity = capacity_list[random_number]
                                 if server_section >= max_capacity:
+                                    print("add")
                                     people.append(random_person)
                                     everyone.append(random_person)
                                     server_section += 1
@@ -604,47 +612,14 @@ def check_for_cap(request):
     for x in date_list:
         if x == last_request:
             count += 1
+    email_list = sheet_pandas["Email Address"].to_list()
+    last_person = email_list[length - 1]
     if count > 4:
-        email_list = sheet_pandas["Email Address"].to_list()
-        last_person = email_list[length - 1]
         send_mail("Unfortunately, there have been too many requests for that date; your request has been denied. Sorry for the inconvenience. \n-Kenny's Management",
                   last_person, "logo.png", "YOUR REQUEST HAS BEEN DENIED")
-        # sheet_instance.delete
-        # Delete Request
-        # CLIENT_SECRET_FILE = 'client_secret.json'
-        # API_NAME = 'sheets'
-        # API_VERSION = 'v4'
-        # SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-        # service = Create_Service(
-        #     CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
-        # request_body = {
-        #     'requests': [
-        #         {
-        #             'deleteDimension': {
-        #                 'range': {
-        #                     'sheetID': '373398604',
-        #                     'dimension': 'ROWS',
-        #                     'startIndex': length,
-        #                     'endIndex': length + 1
-        #                 }
-        #             }
-        #         },
-        #         {
-        #             'deleteDimension': {
-        #                 'range': {
-        #                     'sheetID': '373398604',
-        #                     'dimension': 'COLUMNS',
-        #                     'startIndex': 0,
-        #                     'endIndex': 4
-        #                 }
-        #             }
-        #         }
-        #     ]
-        # }
-        # service.spreadsheets().bashUpdate(
-        #     spreadsheetId='373398604',
-        #     body=request_body
-        # ).execute()
         print("max")
+    else:
+        send_mail("Your request has been confirmed! However, in the event of staff shortages your request may be overridden. \n-Kenny's Management",
+                  last_person, "logo.png", "YOUR REQUEST HAS BEEN CONFIRMED")
     print(count)
     return render(request, "home.html")
