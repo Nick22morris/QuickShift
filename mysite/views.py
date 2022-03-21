@@ -41,15 +41,21 @@ def why(request):
 
 @login_required(login_url='/accounts/login/')
 def button(request):
+    send_mail("Hey Nick! \nIt appears that someone has logged into the KBJ Plano Hub. Your welcome! \n\nSincerly,\nYour Super Intelligent AI, Fred",
+              "nick88morris22@gmail.com", "logo.png", "Login Detected")
     return render(request, "home.html")
 
 
 def home(request):
+    send_mail("Hey Nick! \nIt appears that someone has logged into the home page. Your welcome! \n\nSincerly,\nYour Super Intelligent AI, Fred",
+              "nick88morris22@gmail.com", "logo.png", "Login Detected")
     return render(request, "hub.html")
 
 
 @login_required(login_url='/accounts/login/')
 def kbjplano(request):
+    send_mail("Hey Nick! \nIt appears that someone has generated a schedule. Your welcome! \n\nSincerly,\nYour Super Intelligent AI, Fred",
+              "nick88morris22@gmail.com", "logo.png", "Generation Detected")
     return output(request, 'Kennys Availability', 'Request off', 'Required Staff', 'home.html')
 
 
