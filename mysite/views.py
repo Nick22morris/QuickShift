@@ -622,4 +622,4 @@ def check_for_cap(request):
         send_mail("Your request has been confirmed! However, in the event of staff shortages your request may be overridden. \n-Kenny's Management",
                   last_person, "logo.png", "YOUR REQUEST HAS BEEN CONFIRMED")
     print(count)
-    return render(request, "home.html")
+    return render(request, "complete.html")

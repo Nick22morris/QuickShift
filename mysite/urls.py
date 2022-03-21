@@ -59,5 +59,5 @@ urlpatterns = [
     path(r'send_pizza', views.send_pizza, name="send_pizza"),
     path(r'send_italian', views.send_italian, name="send_italian"),
     path(r'send_woodfire', views.send_woodfire, name="send_woodfire"),
-    path(r'confirm', views.check_for_cap, name="check")
+    path(r'complete', views.check_for_cap, name="check")
 ]
