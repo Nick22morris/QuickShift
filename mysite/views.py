@@ -195,6 +195,8 @@ def output(request, availability_name, requests_name, staff_name, page):
             it = 3
         elif shift == "f":
             it = 4
+        elif shift == "c":
+            it = 5
         needed_list = needed_pandas[day].to_list()
         length = needed_list[it]
         people = []
@@ -273,6 +275,7 @@ def output(request, availability_name, requests_name, staff_name, page):
         server = generate(shift, "s")
         hostess = generate(shift, "h")
         runner = generate(shift, "f")
+        busser = generate(shift, "c")
 
         col = 1
 
@@ -292,11 +295,18 @@ def output(request, availability_name, requests_name, staff_name, page):
                         msg = "10:00: Expo"
                     if text == "Runner":
                         msg = "12:00 Runner"
+                    if text == "Busser":
+                        msg = "9:00 Bus"
                 else:
                     if text == "Runner":
                         msg = "4:00 Runner"
                     if text == "Bar":
                         msg = "4:00: Bar"
+                    if text == "Busser":
+                        if "Fri" in shift or "Sat" in shift or "Sun" in shift:
+                            msg = "4:00 Bus"
+                        else:
+                            msg = "5:00 Bus"
                     if text == "H/G":
                         if sec == 1:
                             msg = "4:00: H/G"
@@ -320,7 +330,7 @@ def output(request, availability_name, requests_name, staff_name, page):
         quick_write(bartender, "Bar")
         quick_write(runner, "Runner")
         quick_write(expo, "Expo")
-
+        quick_write(busser, "Busser")
         row += 1
 
     for y in range(len(all_shifts)):
