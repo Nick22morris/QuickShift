@@ -57,9 +57,6 @@ def home(request):
         username = request.user.username
         send_mail(f"Hey Nick! \nIt appears that {username} has logged into the home page. Your welcome! \n\nSincerly,\nYour Super Intelligent AI, Fred",
                   "nick88morris22@gmail.com", "logo.png", "Login Detected")
-    else:
-        send_mail("Hey Nick! \nIt appears that someone has logged into the home page. Your welcome! \n\nSincerly,\nYour Super Intelligent AI, Fred",
-                  "nick88morris22@gmail.com", "logo.png", "Login Detected")
     return render(request, "hub.html")
 
 
