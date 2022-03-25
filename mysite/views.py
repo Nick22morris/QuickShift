@@ -203,6 +203,17 @@ def output(request, availability_name, requests_name, staff_name, page):
         request_names = request_pandas["Name"].to_list()
         counter = 0
         server_section = 1
+        dy = getDate(day)
+        people_per_day = 0
+        for x in range(len(request_names)):
+            if request_dates[x] == dy and request_shift[x] in day:
+                c_temp = all_shifts.index(day) + 1
+                worksheet.write(sheet_names.index(
+                    request_names[x]) + 1, c_temp,     "Request Off")
+                people_per_day += 1
+            if people_per_day == 4:
+                break
+
         while len(people) < length:
             print(counter)
             # Selects random person
@@ -226,9 +237,11 @@ def output(request, availability_name, requests_name, staff_name, page):
             if random_person in max_people:
                 has_not_requested_off = False
 
+                # quick_write(objA, "RO")
+
             # Over rides request off if not enough shifts
-            if counter > 100:
-                has_not_requested_off = True
+            # if counter > 100:
+            #     has_not_requested_off = True
             # Stops generating if less people availible than shifts
             if counter > 200:
                 tab = all_shifts.index(day) + 1
@@ -281,6 +294,8 @@ def output(request, availability_name, requests_name, staff_name, page):
             for x in position:
                 val = sheet_names.index(x) + 1
                 msg = "error"
+                if text == "RO":
+                    msg = "Requested Off"
                 if "AM" in shift:
                     if text == "Bar":
                         msg = "10:00: Bar"
@@ -391,7 +406,7 @@ def log(request):
     return render(request, "registration/logged_out.html")
 
 
-@login_required(login_url='/accounts/login/')
+@ login_required(login_url='/accounts/login/')
 def upload(request, file_type):
     import pandas as pd
     if request.method == 'POST' and request.FILES['document']:
