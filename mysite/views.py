@@ -215,7 +215,6 @@ def output(request, availability_name, requests_name, staff_name, page):
                 break
 
         while len(people) < length:
-            print(counter)
             # Selects random person
             random_number = random.randint(0, total_servers)
             # Availability of selected person
@@ -260,8 +259,19 @@ def output(request, availability_name, requests_name, staff_name, page):
                                     everyone.append(random_person)
                                     server_section += 1
                             else:
-                                people.append(random_person)
-                                everyone.append(random_person)
+                                sucker = True
+                                decide = random.randint(0, 9)
+                                if random_person == "Bella":
+                                    if decide == 1:
+                                        people.append(random_person)
+                                        everyone.append(random_person)
+                                # elif random_person == "Bella":
+                                #     if decide == 1:
+                                #         people.append(random_person)
+                                #         everyone.append(random_person)
+                                else:
+                                    people.append(random_person)
+                                    everyone.append(random_person)
             counter += 1
         return people
 
