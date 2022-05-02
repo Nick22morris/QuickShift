@@ -47,7 +47,7 @@ def count(request):
 def button(request):
     if request.user.is_authenticated:
         username = request.user.username
-        send_mail(f"Hey Nick! \nIt appears that {username} has logged into the KBJ Plano Hub. Your welcome! \n\nSincerly,\nYour Super Intelligent AI, Fred",
+        send_mail(f"Hey Nick! \nIt appears that {username} has logged into the KBJ Plano Hub. You're welcome! \n\nSincerly,\nYour Super Intelligent AI, Fred",
                   "nick88morris22@gmail.com", "logo.png", "Login Detected")
     return render(request, "home.html")
 
@@ -55,7 +55,7 @@ def button(request):
 def home(request):
     if request.user.is_authenticated:
         username = request.user.username
-        send_mail(f"Hey Nick! \nIt appears that {username} has logged into the home page. Your welcome! \n\nSincerly,\nYour Super Intelligent AI, Fred",
+        send_mail(f"Hey Nick! \nIt appears that {username} has logged into the home page. You're welcome! \n\nSincerly,\nYour Super Intelligent AI, Fred",
                   "nick88morris22@gmail.com", "logo.png", "Login Detected")
     return render(request, "hub.html")
 
@@ -64,7 +64,7 @@ def home(request):
 def kbjplano(request):
     if request.user.is_authenticated:
         username = request.user.username
-        send_mail(f"Hey Nick! \nIt appears that {username} has generated a schedule. Your welcome! \n\nSincerly,\nYour Super Intelligent AI, Fred",
+        send_mail(f"Hey Nick! \nIt appears that {username} has generated a schedule. You're welcome! \n\nSincerly,\nYour Super Intelligent AI, Fred",
                   "nick88morris22@gmail.com", "logo.png", "Generation Detected")
     return output(request, 'Kennys Availability', 'Request off', 'Required Staff', 'home.html')
 
