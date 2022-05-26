@@ -582,7 +582,7 @@ def send_mail(body, emails, file, subject):
         with smtplib.SMTP('smtp.gmail.com', 587) as smtpObj:
             smtpObj.ehlo()
             smtpObj.starttls()
-            smtpObj.login("quickshiftschedule@gmail.com", "IloveBurgers!")
+            smtpObj.login("quickshiftschedule@gmail.com", "ohzqksaxlvbpljkl")
             smtpObj.sendmail(sender_email, receiver_email, msg.as_string())
     except Exception as e:
         print(e)
